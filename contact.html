@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Stackly Corporate Digital Agency Salem</title>
+  <meta name="description" content="Contact Stackly Salem Command Center — visit MMR Complex, Chinna Thirupathi, Salem, TN 636008 or call +91 98765 43210 for fleet rentals, repair dispatches, and partnerships.">
+  <link rel="icon" type="image/webp" href="assets/top-logo.webp">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+
+  
+  <link rel="stylesheet" href="style.css?v=7.0">
+
+  <style>
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 18px rgba(191,247,71,.3);}50%{box-shadow:0 0 40px rgba(191,247,71,.6);} }
+    @keyframes floatY { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
+
+    
+    .contact-hero { position:relative; min-height:80vh; display:flex; align-items:center; overflow:hidden; }
+    .contact-hero__bg {
+      position:absolute; inset:0;
+      background-image:url('assets/pexels-yankrukov-7698802.webp');
+      background-size:cover; background-position:center;
+      transform:scale(1.08); will-change:transform;
+    }
+    .contact-hero__overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(11,11,11,.92) 0%, rgba(11,11,11,.76) 60%, rgba(11,11,11,.92) 100%);
+    }
+    .contact-hero__content { position:relative; z-index:3; }
+
+    .eyebrow-pill {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(191,247,71,.1); border:1px solid rgba(191,247,71,.3);
+      border-radius:100px; padding:6px 18px;
+      font-size:.78rem; font-weight:700; letter-spacing:.12em;
+      color:#BFF747; text-transform:uppercase; margin-bottom:22px;
+    }
+    .eyebrow-pill .dot { width:7px; height:7px; border-radius:50%; background:#BFF747; animation:glowPulse 1.8s infinite; }
+
+    .sec-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(191,247,71,.08); border:1px solid rgba(191,247,71,.2);
+      border-radius:100px; padding:5px 16px;
+      font-size:.72rem; font-weight:700; letter-spacing:.12em;
+      color:#BFF747; text-transform:uppercase; margin-bottom:14px;
+    }
+    .page-title {
+      font-family:'Outfit',sans-serif;
+      font-size:clamp(2.4rem,5.2vw,4rem);
+      font-weight:900; line-height:1.1; color:#fff; margin-bottom:20px;
+    }
+    .page-title .accent { color:#BFF747; }
+    .sec-title {
+      font-family:'Outfit',sans-serif;
+      font-size:clamp(1.9rem,3.8vw,2.8rem);
+      font-weight:800; color:#fff; margin-bottom:14px; line-height:1.12;
+    }
+    .sec-title .accent { color:#BFF747; }
+    .sec-body { font-size:1rem; color:rgba(255,255,255,.55); line-height:1.72; max-width:620px; }
+
+    
+    .hq-info-panel {
+      background:#111; border:1.5px solid #242424; border-radius:24px;
+      padding:40px 36px; height:100%; display:flex; flex-direction:column; justify-content:space-between;
+      transition:border-color .35s, box-shadow .38s;
+    }
+    .hq-info-panel:hover {
+      border-color:rgba(191,247,71,.4);
+      box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 24px rgba(191,247,71,.12);
+    }
+    .contact-item-card {
+      display:flex; align-items:flex-start; gap:18px; margin-bottom:24px;
+      padding:16px; border-radius:16px; background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.05); transition:all .28s;
+    }
+    .contact-item-card:hover {
+      background:rgba(255,255,255,.04); border-color:rgba(191,247,71,.3);
+      transform:translateX(4px);
+    }
+    .c-icon-badge {
+      width:52px; height:52px; flex-shrink:0; border-radius:14px;
+      background:rgba(191,247,71,.12); border:1px solid rgba(191,247,71,.3);
+      color:#BFF747; display:flex; align-items:center; justify-content:center;
+      font-size:1.25rem;
+    }
+    .c-icon-badge.blue { background:rgba(96,165,250,.12); border-color:rgba(96,165,250,.3); color:#60a5fa; }
+    .c-icon-badge.purple { background:rgba(167,139,250,.12); border-color:rgba(167,139,250,.3); color:#a78bfa; }
+    .c-icon-badge.amber { background:rgba(251,191,36,.12); border-color:rgba(251,191,36,.3); color:#fbbf24; }
+
+    .map-frame-wrap {
+      border-radius:18px; overflow:hidden; border:1.5px solid #282828;
+      box-shadow:0 12px 30px rgba(0,0,0,.5);
+    }
+    .map-frame-wrap iframe { display:block; width:100%; border:0; }
+
+    
+    .inquiry-form-panel {
+      background:#111; border:1.5px solid #242424; border-radius:24px;
+      padding:44px 40px; transition:border-color .35s, box-shadow .38s;
+    }
+    .inquiry-form-panel:hover {
+      border-color:rgba(191,247,71,.4);
+      box-shadow:0 24px 60px rgba(0,0,0,.6), 0 0 24px rgba(191,247,71,.12);
+    }
+    .custom-form-label {
+      font-size:.84rem; font-weight:700; color:rgba(255,255,255,.75);
+      margin-bottom:8px; display:block;
+    }
+    .custom-form-input {
+      background:#0B0B0B; border:1.5px solid #282828; border-radius:12px;
+      padding:14px 18px; color:#fff; font-size:.94rem; width:100%;
+      outline:none; transition:all .25s ease;
+    }
+    .custom-form-input:focus {
+      border-color:#BFF747; box-shadow:0 0 0 3px rgba(191,247,71,.15);
+      background:#0f0f0f;
+    }
+    .custom-form-input::placeholder { color:rgba(255,255,255,.3); }
+    select.custom-form-input option { background:#111; color:#fff; padding:8px; }
+    textarea.custom-form-input { resize:vertical; min-height:140px; }
+
+    
+    .pro-dept-card {
+      background:#111; border:1.5px solid #242424; border-radius:22px;
+      padding:34px 26px; text-align:center; height:100%; display:flex;
+      flex-direction:column; justify-content:space-between;
+      transition:transform .35s cubic-bezier(0.16,1,0.3,1), border-color .35s, box-shadow .35s;
+    }
+    .pro-dept-card:hover {
+      transform:translateY(-8px); border-color:rgba(191,247,71,.5);
+      box-shadow:0 20px 48px rgba(0,0,0,.6), 0 0 20px rgba(191,247,71,.12);
+    }
+    .dept-icon-box {
+      width:62px; height:62px; border-radius:18px;
+      background:rgba(191,247,71,.1); border:1px solid rgba(191,247,71,.25);
+      color:#BFF747; display:flex; align-items:center; justify-content:center;
+      font-size:1.5rem; margin:0 auto 20px;
+    }
+    .dept-btn-action {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      background:transparent; border:1.5px solid #2e2e2e; border-radius:100px;
+      padding:9px 20px; font-size:.82rem; font-weight:700;
+      color:rgba(255,255,255,.65); text-decoration:none; transition:all .25s;
+    }
+    .dept-btn-action:hover { border-color:#BFF747; color:#BFF747; background:rgba(191,247,71,.08); }
+
+    
+    .pro-faq-accordion .accordion-item {
+      background:#111; border:1.5px solid #242424; border-radius:16px!important;
+      margin-bottom:14px; overflow:hidden; transition:border-color .28s;
+    }
+    .pro-faq-accordion .accordion-item:hover { border-color:rgba(191,247,71,.35); }
+    .pro-faq-accordion .accordion-button {
+      background:#111; color:#fff; font-weight:700; font-size:1.02rem;
+      box-shadow:none; padding:20px 26px; border:none;
+    }
+    .pro-faq-accordion .accordion-button:not(.collapsed) {
+      background:#111; color:#BFF747;
+      box-shadow:inset 0 -1px 0 rgba(191,247,71,.25);
+    }
+    .pro-faq-accordion .accordion-button::after {
+      filter:brightness(0) saturate(100%) invert(87%) sepia(57%) saturate(407%) hue-rotate(48deg) brightness(105%) contrast(97%);
+      transition:transform .3s;
+    }
+    .pro-faq-accordion .accordion-body {
+      background:#0d0d0d; color:rgba(255,255,255,.6); font-size:.92rem;
+      line-height:1.75; padding:22px 26px;
+    }
+
+    .cta-band { background:linear-gradient(135deg,#0d0d0d 0%,#141814 50%,#0d0d0d 100%); border-top:1px solid #242424; border-bottom:1px solid #242424; }
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+
+  
+  
+  <div class="nav-overlay" id="navOverlay">
+    <div class="nav-overlay__header">
+      <button type="button" class="nav-overlay__close" id="overlayCloseBtn" aria-label="Close menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="nav-overlay__brand">
+        <img src="assets/logo.webp" alt="Stackly Corporate" width="130" height="42" style="object-fit: contain;">
+      </a>
+    </div>
+    <div class="nav-overlay__content">
+      <ul class="nav-overlay__list">
+        <li class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></li>
+        <li class="nav-overlay__item"><a href="about.html" class="nav-overlay__link">About</a></li>
+        <li class="nav-overlay__item"><a href="services.html" class="nav-overlay__link">Services</a></li>
+        <li class="nav-overlay__item"><a href="team.html" class="nav-overlay__link">Team</a></li>
+        <li class="nav-overlay__item"><a href="blog.html" class="nav-overlay__link">Blog</a></li>
+        <li class="nav-overlay__item"><a href="contact.html" class="nav-overlay__link">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-overlay__footer">
+      <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+        <a href="signin.html" class="btn-stackly-dark-pill"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+        <a href="get-started.html" class="btn-style-one py-2 px-3">
+          <span class="btn-title">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></span>
+          <span class="dot-box"><span class="dot-item"></span></span>
+        </a>
+      </div>
+      <p class="mb-0 text-white-50 small">&copy; 2026 Stackly Corporate Agency. Salem, TN.</p>
+    </div>
+  </div>
+
+  
+  <div id="stackly-preloader">
+    <div class="preloader-bg-glow"></div>
+    <div class="preloader-bg-glow-secondary"></div>
+    <div class="preloader-grid-lines"></div>
+    <div class="preloader-particles">
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+    </div>
+    <div class="preloader-content">
+      <div class="preloader-circle-wrapper">
+        <div class="circle-ring ring-outer-spin"></div>
+        <div class="circle-ring ring-middle-pulse"></div>
+        <div class="circle-ring ring-inner-orbit">
+          <span class="orbit-dot dot-1"></span>
+          <span class="orbit-dot dot-2"></span>
+          <span class="orbit-dot dot-3"></span>
+          <span class="orbit-dot dot-4"></span>
+        </div>
+        <div class="preloader-logo-box">
+          <img src="assets/top-logo.webp" alt="Stackly Logo" class="preloader-logo-img">
+          <div class="logo-shimmer"></div>
+        </div>
+      </div>
+      <div class="preloader-bar-container">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill">
+            <div class="progress-glow-tip"></div>
+          </div>
+        </div>
+        <div class="preloader-meta d-flex justify-content-between align-items-center mt-2">
+          <span class="preloader-status-text" id="preloader-status-text">INITIALIZING ENTERPRISE ENVIRONMENT...</span>
+          <span class="preloader-pct-badge"><span id="preloader-pct-num">0</span>%</span>
+        </div>
+        <div class="preloader-soundwave">
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scrollProgressBar"></div>
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-ring"></div>
+
+  
+  <div class="top-bar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+      <div class="d-flex align-items-center gap-3">
+        <span><i class="fa-solid fa-location-dot text-lime me-1"></i> MMR Complex, Chinna Thirupathi, Salem, TN 636008</span>
+        <span class="d-none d-md-inline"><i class="fa-solid fa-phone text-lime me-1"></i> +91 98765 43210</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  
+  <nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><img src="assets/logo.webp" alt="Stackly" class="brand-logo-img"></a>
+      <button class="navbar-toggler stackly-burger-btn collapsed" type="button" id="mobileMenuToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="collapse navbar-collapse" id="contactNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <a href="signin.html" class="btn-stackly-dark-pill text-nowrap"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+          <a href="get-started.html" class="btn-style-one text-nowrap py-2 px-3">
+            <span class="btn-title">Get Started</span><span class="dot-box"><span class="dot-item"></span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+  <header class="contact-hero" id="contactHero">
+    <div class="contact-hero__bg" id="contactHeroBg"></div>
+    <div class="contact-hero__overlay"></div>
+    <div class="ambient-green-glow ambient-glow-top-right" style="opacity:.3;"></div>
+    <div class="container contact-hero__content text-center py-5">
+      <div class="reveal-init reveal-fade-up">
+        <div class="eyebrow-pill"><span class="dot"></span> 24/7 SALEM DISPATCH DESK</div>
+      </div>
+      <h1 class="page-title mt-2 reveal-init reveal-fade-up delay-1" data-scroll-title>Talk to Stackly <span class="accent">Salem Command</span></h1>
+      <p class="text-light-muted mx-auto mb-4 reveal-init reveal-fade-up delay-2" style="max-width:600px;line-height:1.72;font-size:1.05rem;">
+        Fleet booking inquiries, mobile repair dispatches, custom seasonal leases, or owner network onboarding — our Chinna Thirupathi team responds within 1 business day.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 reveal-init reveal-fade-up delay-3">
+        <a href="#inquirySection" class="btn-lime-solid"><span>Send Inquiry</span><i class="fas fa-arrow-down ms-2"></i></a>
+        <a href="404.html" class="btn-stackly-dark-pill px-4 py-2"><i class="fas fa-phone text-lime me-2"></i> Call +91 98765 43210</a>
+      </div>
+    </div>
+  </header>
+
+  
+  <section class="py-5" style="background:#0B0B0B;" id="inquirySection">
+    <div class="container">
+      <div class="row g-5 align-items-stretch">
+        
+        
+        <div class="col-lg-5 gsap-slide-left">
+          <div class="hq-info-panel">
+            <div>
+              <div class="sec-eyebrow"><i class="fa-solid fa-location-dot"></i> Salem HQ</div>
+              <h2 class="h3 fw-bold text-white mb-2">Visit Our <span class="text-lime">Command Center</span></h2>
+              <p class="text-light-muted small mb-4" style="line-height:1.7;">
+                Walk in for live machinery demos, or submit an inquiry to route your request directly to local dispatch engineers.
+              </p>
+
+              
+              <div class="contact-item-card">
+                <div class="c-icon-badge"><i class="fa-solid fa-map-pin"></i></div>
+                <div>
+                  <h6 class="fw-bold text-white mb-1">Physical Address</h6>
+                  <p class="small text-light-muted mb-0">MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, TN 636008</p>
+                </div>
+              </div>
+
+              
+              <div class="contact-item-card">
+                <div class="c-icon-badge blue"><i class="fa-solid fa-phone"></i></div>
+                <div>
+                  <h6 class="fw-bold text-white mb-1">Direct Phone Lines</h6>
+                  <p class="small text-light-muted mb-0"><a href="404.html" class="text-light-muted text-decoration-none">+91 98765 43210</a> (Toll-Free Dispatch)</p>
+                </div>
+              </div>
+
+              
+              <div class="contact-item-card">
+                <div class="c-icon-badge purple"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <h6 class="fw-bold text-white mb-1">Electronic Support</h6>
+                  <p class="small text-light-muted mb-0"><a href="404.html" class="text-light-muted text-decoration-none">support@stacklycorp.com</a></p>
+                </div>
+              </div>
+
+              
+              <div class="contact-item-card">
+                <div class="c-icon-badge amber"><i class="fa-regular fa-clock"></i></div>
+                <div>
+                  <h6 class="fw-bold text-white mb-1">Operational Hours</h6>
+                  <p class="small text-light-muted mb-0">Mon – Sat: 7:00 AM – 9:00 PM IST<br><span class="text-lime fw-semibold">24/7 Field Response for Active Bookings</span></p>
+                </div>
+              </div>
+            </div>
+
+            
+            <div class="map-frame-wrap mt-3">
+              <iframe title="Chinna Thirupathi Salem Google Map" src="https://www.google.com/maps?q=Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008&hl=en&z=15&output=embed" height="125" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-7 gsap-slide-right">
+          <div class="inquiry-form-panel">
+            <div class="sec-eyebrow"><i class="fa-solid fa-paper-plane"></i> Fast Dispatch Form</div>
+            <h2 class="h3 fw-bold text-white mb-2">Request Equipment or <span class="text-lime">Get in Touch</span></h2>
+            <p class="text-light-muted small mb-4" style="line-height:1.7;">
+              Specify your business location, firm type, industry, and project requirements. Our operations desk will match an available unit instantly.
+            </p>
+
+            <form id="proContactForm" novalidate onsubmit="event.preventDefault(); submitInquiryForm();">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div>
+                    <label class="custom-form-label" for="inqName">Full Name *</label>
+                    <input type="text" class="custom-form-input" id="inqName" placeholder="e.g. Ramesh Sundaram" required>
+                      <div class="form-error-slot"><span class="form-error-msg"></span></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div>
+                    <label class="custom-form-label" for="inqEmail">Email Address *</label>
+                    <input type="email" class="custom-form-input" id="inqEmail" placeholder="you@corpmail.com" required>
+                      <div class="form-error-slot"><span class="form-error-msg"></span></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div>
+                    <label class="custom-form-label" for="inqPhone">Mobile Number *</label>
+                    <input type="tel" class="custom-form-input" id="inqPhone" placeholder="+91 98765 43210" required>
+                      <div class="form-error-slot"><span class="form-error-msg"></span></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div>
+                    <label class="custom-form-label" for="inqSubject">Service Category *</label>
+                    <select class="custom-form-input js-stackly-select" id="inqSubject" required>
+                      <option value="" selected disabled>Choose requirement</option>
+                      <option value="Cloud Architecture">Enterprise Strategy</option>
+                      <option value="Combine Harvester">Combine Harvester Dispatch</option>
+                      <option value="Data Analytics">AI Data Precision Analytics</option>
+                      <option value="On-Field Repair">On-Field Mobile Repair</option>
+                      <option value="Solar Irrigation">Solar Pump Irrigation</option>
+                      <option value="Seasonal Lease">Seasonal Fleet Lease</option>
+                      <option value="Owner Network">List Equipment (Owner Network)</option>
+                      <option value="Other">General Partnership</option>
+                    </select>
+                      <div class="form-error-slot"><span class="form-error-msg"></span></div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div>
+                    <label class="custom-form-label" for="inqMessage">Office Location, Industry &amp; Requirements *</label>
+                    <textarea class="custom-form-input" id="inqMessage" placeholder="Tell us your district/taluk, industry type (e.g. fintech, healthcare), required dates, and whether you need a consultant..." rows="4" required></textarea>
+                      <div class="form-error-slot"><span class="form-error-msg"></span></div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-lime-solid w-100 justify-content-center mt-4 py-3" id="inqSubmitBtn">
+                <span>Submit Inquiry</span><i class="fas fa-arrow-right ms-2"></i>
+              </button>
+
+              <div id="inqSuccessAlert" class="mt-3" style="display:none;">
+                <div style="background:rgba(191,247,71,.12);border:1.5px solid rgba(191,247,71,.4);border-radius:14px;padding:16px 20px;color:#BFF747;font-weight:600;">
+                  <i class="fas fa-check-circle me-2"></i> Inquiry received! Salem Dispatch will contact you within 1 business day.
+                </div>
+              </div>
+
+              
+              <div class="d-flex align-items-center justify-content-center gap-3 mt-4 pt-3 border-top border-secondary border-opacity-25 text-light-muted small">
+                <span><i class="fas fa-shield-alt text-lime me-1"></i> 256-Bit SSL Encrypted</span>
+                <span class="text-secondary">•</span>
+                <span><i class="fas fa-clock text-lime me-1"></i> Sub-1hr SLA Guarantee</span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5 position-relative" style="background:#0d0d0d;">
+    <div class="ambient-green-glow ambient-glow-top-right" style="opacity:.12;"></div>
+    <div class="container position-relative" style="z-index:2;">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-sitemap"></i> Specialized Desks</div>
+        <h2 class="sec-title" data-scroll-title>Connect with the Right <span class="accent">Department</span></h2>
+        <p class="sec-body mx-auto">Direct email routing and dedicated points of contact for faster response times.</p>
+      </div>
+
+      <div class="row g-4 stagger-children">
+        
+        
+        <div class="col-lg-3 col-md-6">
+          <div class="pro-dept-card">
+            <div>
+              <div class="dept-icon-box"><i class="fa-solid fa-calculator"></i></div>
+              <h5 class="fw-bold text-white mb-2">Sales &amp; Buyouts</h5>
+              <p class="text-light-muted small mb-4" style="line-height:1.65;">
+                Custom technology procurement quotes, long-term cloud financing, and corporate firm deals.
+              </p>
+            </div>
+            <a href="404.html" class="dept-btn-action">
+              <span>sales@stacklycorp.com</span><i class="fas fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <div class="pro-dept-card">
+            <div>
+              <div class="dept-icon-box" style="background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.25);color:#60a5fa;"><i class="fa-solid fa-chart-pie"></i></div>
+              <h5 class="fw-bold text-white mb-2">Equipment Rentals</h5>
+              <p class="text-light-muted small mb-4" style="line-height:1.65;">
+                Hourly, daily, and seasonal rental bookings with verified operator assignments.
+              </p>
+            </div>
+            <a href="services.html" class="dept-btn-action">
+              <span>Explore Services</span><i class="fas fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <div class="pro-dept-card">
+            <div>
+              <div class="dept-icon-box" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.25);color:#f87171;"><i class="fa-solid fa-wrench"></i></div>
+              <h5 class="fw-bold text-white mb-2">Mobile Maintenance</h5>
+              <p class="text-light-muted small mb-4" style="line-height:1.65;">
+                24/7 on-field mobile repair crews, hydraulic breakdowns, and spare parts dispatch.
+              </p>
+            </div>
+            <a href="404.html" class="dept-btn-action">
+              <span>service@stacklycorp.com</span><i class="fas fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <div class="pro-dept-card">
+            <div>
+              <div class="dept-icon-box" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.25);color:#a78bfa;"><i class="fa-solid fa-handshake"></i></div>
+              <h5 class="fw-bold text-white mb-2">Owner Partnerships</h5>
+              <p class="text-light-muted small mb-4" style="line-height:1.65;">
+                List your machinery on the Stackly marketplace and earn guaranteed seasonal rental income.
+              </p>
+            </div>
+            <a href="get-started.html" class="dept-btn-action">
+              <span>Join Owner Network</span><i class="fas fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5" style="background:#0B0B0B;">
+    <div class="container">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-circle-question"></i> Help &amp; Clarifications</div>
+        <h2 class="sec-title" data-scroll-title>Frequently Asked <span class="accent">Questions</span></h2>
+        <p class="sec-body mx-auto">Quick answers to common questions about our delivery SLAs, operator support, and insurance coverage.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-9 reveal-init reveal-fade-up">
+          <div class="accordion pro-faq-accordion" id="contactFaq">
+            
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                  How quickly can a strategy or framework be delivered to my firm?
+                </button>
+              </h2>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#contactFaq">
+                <div class="accordion-body">
+                  Most Salem, Namakkal, Erode, and Dharmapuri bookings confirm same-day or next-morning gate delivery, depending on transport slot availability and implement attachment requirements. Extended Tamil Nadu districts are served via scheduled multi-day dispatch windows shown during booking.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                  Do machine rentals include a certified operator?
+                </button>
+              </h2>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                <div class="accordion-body">
+                  Yes, certified consultants are available as add-ons on all strategy, cloud architecture, and data listings. Simply select "With Certified Operator" when placing your inquiry or booking online, and we will assign experienced personnel tailored to your specific firm and objective.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                  Is equipment insured during transit and field operations?
+                </button>
+              </h2>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                <div class="accordion-body">
+                  Every machine in our verified marketplace carries comprehensive insurance covering road transit, accidental on-field damage, and third-party liabilities during the active rental period. Transparent terms and coverage certificates are digitally issued with every agreement.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                  How can I list my own product or framework on Stackly?
+                </button>
+              </h2>
+              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                <div class="accordion-body">
+                  Individual machinery owners and fleet operators can join our network by creating an account via Get Started, uploading machine photographs, fitness certificates, and preferred hourly/daily rates. Our Salem team completes physical verification within 48 hours to activate the listing statewide.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                  What happens if equipment breaks down during peak harvest?
+                </button>
+              </h2>
+              <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                <div class="accordion-body">
+                  Stackly operates a dedicated 24/7 mobile field service fleet. In the rare event of hydraulic or mechanical failure, our mobile response crew is dispatched immediately with replacement parts or an equivalent backup machine within our sub-30-minute SLA window.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="cta-band py-5" >
+    <div class="container text-center gsap-fade-up">
+      <div class="eyebrow-pill justify-content-center mb-3"><span class="dot"></span> READY TO DEPLOY?</div>
+      <h2 class="sec-title mb-3" data-scroll-title>Browse the Fleet or Sign In to <span class="accent">Manage Bookings</span></h2>
+      <p class="text-light-muted mb-4 mx-auto" style="max-width:540px;line-height:1.72;">
+        Explore verified strategy, systems, and AI tech stacks — or access your telemetry dashboard and rental invoices.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="services.html" class="btn-lime-solid"><span>Explore Services</span><i class="fas fa-chart-pie ms-2"></i></a>
+        <a href="signin.html" class="btn-stackly-dark-pill px-4 py-2"><i class="fas fa-arrow-right text-lime me-2"></i> Client Sign In</a>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer class="creovio-mega-footer bg-architectural-grid">
+    <div class="ambient-green-glow ambient-glow-top-left" style="opacity: 0.7;"></div>
+
+    <div class="container position-relative" style="z-index: 2;">
+      
+      <div class="footer-newsletter-box">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <span class="badge-pill-sub mb-2"><span class="badge-dot"></span> STAY AHEAD</span>
+            <h3 class="fw-bold text-white mb-1">Subscribe to Stackly Engineering Dispatch</h3>
+            <p class="text-light-muted small mb-0">Weekly architectural deep dives, AI research notes, and enterprise cloud blueprints.</p>
+          </div>
+          <div class="col-lg-6">
+            <form class="footer-newsletter-input-group" onsubmit="event.preventDefault(); window.location.href='404.html';">
+              <input type="email" placeholder="Enter your enterprise email..." required>
+                      <div class="form-error-slot"><span class="form-error-msg"></span></div>
+              <button type="submit" class="btn-style-one py-2 px-3">
+                <span class="btn-title">Subscribe</span>
+                <span class="dot-box"><span class="dot-item"></span></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="row g-4">
+        
+        <div class="col-lg-4 col-md-6">
+          <a href="index.html" class="d-inline-block mb-3">
+            <img src="assets/logo.webp" alt="Stackly" style="height: 38px;">
+          </a>
+          <p class="text-light-muted small mb-4 pe-lg-4" style="max-width: 290px; line-height: 1.7;">
+            Stackly is an enterprise multipurpose technology agency architecting distributed cloud backbones, autonomous AI systems, and modern digital interfaces. We empower global brands with highly scalable and resilient software infrastructures.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-2 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Quick Links</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="index.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Home</a></li>
+            <li class="mb-2"><a href="about.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> About</a></li>
+            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Services</a></li>
+            <li class="mb-2"><a href="team.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Team</a></li>
+            <li class="mb-2"><a href="blog.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Blog</a></li>
+            <li class="mb-2"><a href="contact.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Our Solutions</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-bolt text-lime me-2"></i> Hyperscale Cloud Infrastructure</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-brain text-lime me-2"></i> Neural AI & LLM Systems</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-shield-alt text-lime me-2"></i> Zero-Trust Cyber Security</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-code text-lime me-2"></i> React & Next.js Platforms</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-microchip text-lime me-2"></i> Salem Physical Innovation Lab</a></li>
+              <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-server text-lime me-2"></i> Enterprise Cloud Architecture</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Contact Info</h5>
+          <ul class="list-unstyled text-light-muted small">
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-envelope text-lime"></i>
+              <span>contact@thestackly.com</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-phone text-lime"></i>
+              <span>+91 98765 43210</span>
+            </li>
+            <li class="d-flex align-items-start gap-2 mb-3">
+              <i class="fa-solid fa-location-dot text-lime mt-1"></i>
+              <span>MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-clock text-lime"></i>
+              <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="footer-bottom-bar d-flex flex-wrap justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
+        <div class="small text-light-muted">
+          &copy; 2026 Stackly Multipurpose Corporate Agency. All rights reserved. Salem HQ, Tamil Nadu.
+        </div>
+        <div class="d-flex gap-3 mt-2 mt-md-0">
+          <a href="404.html" class="text-decoration-none text-light-muted small">Privacy Policy</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Terms of Service</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Security Center</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js?v=7.0"></script>
+  <script>
+    
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to('#contactHeroBg', { yPercent: 28, ease: 'none', scrollTrigger: { trigger: '#contactHero', start: 'top top', end: 'bottom top', scrub: true } });
+    }
+
+    
+    const NAME_RE = /^[a-zA-Z\s]{2,50}$/;
+    const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const PHONE_RE = /^[0-9]{10}$/;
+
+    function setFieldError(inputEl, msg) {
+      if (!inputEl) return;
+      const parent = inputEl.closest('div');
+      const errorSlot = parent ? parent.querySelector('.form-error-slot') : null;
+      const msgEl = errorSlot ? errorSlot.querySelector('.form-error-msg') : null;
+      
+      if (msg) {
+        inputEl.classList.add('error');
+        if (msgEl) {
+          msgEl.textContent = msg;
+          msgEl.classList.add('show');
+        }
+      } else {
+        inputEl.classList.remove('error');
+        if (msgEl) {
+          msgEl.textContent = '';
+          msgEl.classList.remove('show');
+        }
+      }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = document.querySelectorAll('#proContactForm .custom-form-input');
+      inputs.forEach(input => {
+        input.addEventListener('input', () => setFieldError(input, ''));
+        input.addEventListener('change', () => setFieldError(input, ''));
+      });
+    });
+
+    function submitInquiryForm() {
+      const name = document.getElementById('inqName');
+      const email = document.getElementById('inqEmail');
+      const phone = document.getElementById('inqPhone');
+      const subject = document.getElementById('inqSubject');
+      const message = document.getElementById('inqMessage');
+
+      let isValid = true;
+
+      
+      [name, email, phone, subject, message].forEach(el => setFieldError(el, ''));
+
+      
+      if (!name || !name.value.trim() || !NAME_RE.test(name.value.trim())) {
+        setFieldError(name, 'Name contains only alphabets');
+        isValid = false;
+      }
+
+      
+      if (!email || !email.value.trim() || !EMAIL_RE.test(email.value.trim())) {
+        setFieldError(email, 'Enter a valid email address');
+        isValid = false;
+      }
+
+      
+      if (!phone || !phone.value.trim() || !PHONE_RE.test(phone.value.trim())) {
+        setFieldError(phone, 'Enter 10 digit mobile number');
+        isValid = false;
+      }
+
+      
+      if (!subject || !subject.value) {
+        setFieldError(subject, 'Select a service category.');
+        isValid = false;
+      }
+
+      
+      if (!message || !message.value.trim()) {
+        setFieldError(message, 'Message details required.');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      
+      window.location.href = '404.html';
+    }
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

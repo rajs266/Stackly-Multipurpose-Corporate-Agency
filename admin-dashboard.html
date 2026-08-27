@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Admin Executive Suite - Stackly Agency</title>
+  <meta name="description" content="Stackly admin dashboard for sprint approvals, service pods, client engagements, revenue reports, and staff oversight.">
+  <link rel="icon" type="image/webp" href="assets/top-logo.webp">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=8.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dash-page dash-page-admin">
+
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-ring"></div>
+
+  <script>
+    if (!localStorage.getItem('userEmail')) {
+      localStorage.setItem('userEmail', 'admin.salem@thestackly.com');
+      localStorage.setItem('userRole', 'superadmin');
+      localStorage.setItem('userName', 'Arjun Ramanathan');
+    }
+  </script>
+
+  <div class="dash-shell">
+    <aside id="dashSidebar" class="dash-sidebar" aria-label="Admin navigation">
+      <div class="dash-sidebar__user">
+        <div class="dash-sidebar__avatar" id="dashUserAvatar">A</div>
+        <div class="min-w-0">
+          <div class="dash-sidebar__name" id="dashUserName">Admin</div>
+          <div class="dash-sidebar__email" id="dashUserEmail">admin@stackly.agency</div>
+        </div>
+      </div>
+      <span class="dash-sidebar__role"><i class="fa-solid fa-shield-halved"></i> Agency Admin</span>
+
+      <nav class="dash-sidebar__nav">
+        <div class="dash-sidebar__label">Overview</div>
+        <button type="button" class="dash-sidebar__link active" data-section="overview"><i class="fa-solid fa-chart-line"></i> Overview</button>
+        <div class="dash-sidebar__label">Operations</div>
+        <button type="button" class="dash-sidebar__link" data-section="verifications"><i class="fa-solid fa-clipboard-check"></i> Sprint Approvals</button>
+        <button type="button" class="dash-sidebar__link" data-section="fleet"><i class="fa-solid fa-cubes"></i> Service Pods</button>
+        <button type="button" class="dash-sidebar__link" data-section="bookings"><i class="fa-solid fa-calendar-check"></i> Engagements</button>
+        <button type="button" class="dash-sidebar__link" data-section="reports"><i class="fa-solid fa-chart-column"></i> Reports</button>
+        <div class="dash-sidebar__label">Team</div>
+        <button type="button" class="dash-sidebar__link" data-section="staff"><i class="fa-solid fa-users"></i> Staff</button>
+      </nav>
+
+      <a href="signin.html" id="dashLogout" class="dash-sidebar__logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </aside>
+
+    <div id="dashOverlay" class="dash-sidebar-overlay" aria-hidden="true"></div>
+
+    <header class="dash-topbar">
+      <div class="dash-topbar__left">
+        <div class="dash-topbar__logo-zone">
+          <button type="button" id="dashMenuToggle" class="dash-topbar__menu" aria-label="Open menu" aria-expanded="false" aria-controls="dashSidebar">
+            <span class="menu-icon" aria-hidden="true"><i class="fa-solid fa-bars"></i></span>
+            <span class="close-icon" aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
+          </button>
+          <a href="index.html" class="dash-topbar__logo">
+            <img src="assets/logo.webp" alt="Stackly">
+          </a>
+          <div class="dash-topbar__divider" aria-hidden="true"></div>
+        </div>
+        <div class="dash-topbar__welcome">
+          <h1>Welcome back, <span id="dashWelcomeName">Admin</span></h1>
+          <p>Salem command — live ops, retainers &amp; SLA.</p>
+        </div>
+      </div>
+      <div class="dash-topbar__right">
+        <a href="index.html" class="dash-topbar__home"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+        <a href="404.html" class="dash-topbar__bell" title="Notifications" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i><span class="dot"></span>
+        </a>
+        <div class="dash-topbar__chip">
+          <div class="dash-topbar__chip-avatar">A</div>
+          <div class="dash-topbar__chip-meta">
+            <strong id="dashChipName">Admin</strong>
+            <span>Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="dash-main">
+      <section class="dash-section active" id="section-overview">
+        <div class="dash-welcome-banner gsap-fade-up">
+          <span class="badge mb-2" style="background:rgba(191,247,71,.18);color:#BFF747;width:max-content;animation: bentoPulse 2s infinite;"><i class="fa-solid fa-circle-dot me-1" style="font-size:0.6rem;"></i> Live Ops</span>
+          <h2>Agency command.<br><span style="color:#BFF747">Center live.</span></h2>
+          <p>Approve sprints, watch retainers, and keep Salem pods moving with clear revenue signals.</p>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-xl-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--green"><i class="fa-solid fa-dollar-sign"></i></div>
+                <div>
+                  <div class="text-muted small">Revenue Today</div>
+                  <div class="fs-4 fw-bold">$24.8K</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--blue"><i class="fa-solid fa-building"></i></div>
+                <div>
+                  <div class="text-muted small">Active Clients</div>
+                  <div class="fs-4 fw-bold">48</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--gold"><i class="fa-solid fa-calendar-check"></i></div>
+                <div>
+                  <div class="text-muted small">Sprints Today</div>
+                  <div class="fs-4 fw-bold">12</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--purple"><i class="fa-solid fa-hourglass-half"></i></div>
+                <div>
+                  <div class="text-muted small">Pending Approve</div>
+                  <div class="fs-4 fw-bold">4</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-lg-4">
+            <div class="dash-card h-100 d-flex flex-column rounded-16">
+              <h5 class="fw-bold mb-3">Quick Actions</h5>
+              <div class="dash-qa-grid">
+                <button type="button" class="dash-qa-tile dash-qa-tile--alert" data-section="verifications"><i class="fa-solid fa-clipboard-check"></i> Approve Queue</button>
+                <button type="button" class="dash-qa-tile" data-section="fleet"><i class="fa-solid fa-cubes"></i> Service Pods</button>
+                <button type="button" class="dash-qa-tile" data-section="bookings"><i class="fa-solid fa-calendar-check"></i> Engagements</button>
+                <button type="button" class="dash-qa-tile" data-section="reports"><i class="fa-solid fa-chart-column"></i> Reports</button>
+              </div>
+              <div class="dash-fill-panel mt-auto">
+                <h6><i class="fa-solid fa-lightbulb me-1"></i> Revenue tip</h6>
+                <p>AI mesh utilization is up 18% this week. Push brand-system add-ons for Finova to fill Friday gaps.</p>
+                <div class="dash-fill-panel__meta">
+                  <span class="dash-fill-chip">+18% AI</span>
+                  <span class="dash-fill-chip">Finova focus</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="dash-card h-100 rounded-16">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Recent Activity</h5>
+                <button type="button" class="btn btn-sm btn-stackly-outline" data-section="verifications">Review queue</button>
+              </div>
+              <div class="dash-activity-item">
+                <div class="dash-activity-ico"><i class="fa-solid fa-clipboard-check"></i></div>
+                <div>
+                  <strong>New sprint submitted</strong>
+                  <p class="mb-0 small text-muted">Nexus Health HIPAA mesh from Priya’s pod · awaiting docs</p>
+                </div>
+                <span class="small text-muted ms-auto">12m</span>
+              </div>
+              <div class="dash-activity-item">
+                <div class="dash-activity-ico"><i class="fa-solid fa-calendar-check"></i></div>
+                <div>
+                  <strong>Engagement confirmed</strong>
+                  <p class="mb-0 small text-muted">#STK-892031 Finova rebrand · Sneha studio</p>
+                </div>
+                <span class="small text-muted ms-auto">1h</span>
+              </div>
+              <div class="dash-activity-item">
+                <div class="dash-activity-ico"><i class="fa-solid fa-dollar-sign"></i></div>
+                <div>
+                  <strong>Settlement posted</strong>
+                  <p class="mb-0 small text-muted">$48,200 cleared for August retainers</p>
+                </div>
+                <span class="small text-muted ms-auto">3h</span>
+              </div>
+              <div class="dash-activity-item">
+                <div class="dash-activity-ico"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                  <strong>SLA inspection done</strong>
+                  <p class="mb-0 small text-muted">Salem cluster passed Zero-Trust checks</p>
+                </div>
+                <span class="small text-muted ms-auto">Yesterday</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-lg-7">
+            <div class="dash-card rounded-16">
+              <h5 class="fw-bold mb-3"><i class="fas fa-chart-area me-2" style="color:#BFF747;"></i> Revenue velocity ($K)</h5>
+              <div class="dash-chart-canvas-wrap">
+                <canvas id="adminRevenueChart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="dash-card rounded-16">
+              <h5 class="fw-bold mb-3"><i class="fas fa-chart-pie me-2" style="color:#60A5FA;"></i> Service mix</h5>
+              <div class="dash-chart-canvas-wrap">
+                <canvas id="adminServicesPieChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="dash-card rounded-16 h-100">
+              <h6 class="fw-bold mb-3">HQ pulse</h6>
+              <div class="dash-info-list">
+                <div class="dash-info-item">
+                  <i class="fa-solid fa-building"></i>
+                  <div>
+                    <strong>Salem HQ</strong>
+                    <span>12 pods ready · 3 in QA bay</span>
+                  </div>
+                </div>
+                <div class="dash-info-item">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <div>
+                    <strong>Remote studio</strong>
+                    <span>Brand crew full until Aug 28</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dash-card rounded-16 h-100">
+              <h6 class="fw-bold mb-3">Priority queue</h6>
+              <div class="dash-faq-item">
+                <strong>4 sprints pending docs</strong>
+                <span>Finova, Nexus, Aerodyne, Content pack</span>
+              </div>
+              <div class="dash-faq-item">
+                <strong>2 late invoices flagged</strong>
+                <span>Finance follow-up scheduled 5 PM</span>
+              </div>
+              <div class="dash-faq-item">
+                <strong>1 architect request open</strong>
+                <span>Nexus needs evening HIPAA review</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dash-hotline h-100">
+              <div class="dash-hotline__title"><i class="fa-solid fa-tower-broadcast"></i> Ops desk</div>
+              <span class="dash-hotline__num">Ext. 204</span>
+              <p>Escalate blockers, partner disputes, and peak-week surge approvals from this console.</p>
+              <div class="dash-fill-panel__meta" style="margin-top:.85rem;">
+                <span class="dash-fill-chip">On duty: Sneha</span>
+                <span class="dash-fill-chip">Backup: Arjun</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section" id="section-verifications">
+        <h2 class="fw-bold mb-1">Sprint Approvals</h2>
+        <p class="text-muted mb-4">Approve or reject partner sprint briefs before they hit production pods.</p>
+        <div class="dash-card dash-card--scroll rounded-16">
+          <div class="dash-table-scroll" tabindex="0" aria-label="Approvals table">
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Thumb</th>
+                  <th>Sprint</th>
+                  <th>Owner</th>
+                  <th>Pod</th>
+                  <th>Submitted</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><img src="assets/pexels-yankrukov-7793726.webp" alt="" class="dash-thumb"></td>
+                  <td>Finova Identity v3</td>
+                  <td>Sneha Studio</td>
+                  <td>Brand</td>
+                  <td>Aug 10</td>
+                  <td class="text-nowrap">
+                    <button type="button" class="btn btn-sm btn-success" onclick="handleVerify(this,'approved')">Approve</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="handleVerify(this,'rejected')">Reject</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><img src="assets/pexels-tima-miroshnichenko-5439479.webp" alt="" class="dash-thumb"></td>
+                  <td>Nexus HIPAA Mesh</td>
+                  <td>Priya Strategy</td>
+                  <td>Cloud</td>
+                  <td>Aug 9</td>
+                  <td class="text-nowrap">
+                    <button type="button" class="btn btn-sm btn-success" onclick="handleVerify(this,'approved')">Approve</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="handleVerify(this,'rejected')">Reject</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><img src="assets/pexels-kampus-8204363.webp" alt="" class="dash-thumb"></td>
+                  <td>Aerodyne Growth Pack</td>
+                  <td>Vikram Marketing</td>
+                  <td>Growth</td>
+                  <td>Aug 8</td>
+                  <td class="text-nowrap">
+                    <button type="button" class="btn btn-sm btn-success" onclick="handleVerify(this,'approved')">Approve</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="handleVerify(this,'rejected')">Reject</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><img src="assets/pexels-pavel-danilyuk-7654128.webp" alt="" class="dash-thumb"></td>
+                  <td>Web Platform Cutover</td>
+                  <td>Arjun Architecture</td>
+                  <td>Platform</td>
+                  <td>Aug 7</td>
+                  <td class="text-nowrap">
+                    <button type="button" class="btn btn-sm btn-success" onclick="handleVerify(this,'approved')">Approve</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="handleVerify(this,'rejected')">Reject</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small text-muted mb-0 mt-2 d-md-none"><i class="fa-solid fa-arrows-left-right me-1"></i> Swipe / scroll sideways to see all columns</p>
+        </div>
+      </section>
+
+      <section class="dash-section" id="section-fleet">
+        <h2 class="fw-bold mb-1">Service Pods</h2>
+        <p class="text-muted mb-4">Live catalog of Stackly squads across Salem HQ.</p>
+        <div class="row g-3">
+          <div class="col-sm-6 col-xl-4">
+            <div class="dash-equip-card">
+              <img src="assets/pexels-yankrukov-7793726.webp" alt="Brand studio">
+              <div class="p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <h6 class="fw-bold mb-0">Brand Studio</h6>
+                  <span class="badge bg-success">Available</span>
+                </div>
+                <div class="small text-muted">Sneha · 4 creatives</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-4">
+            <div class="dash-equip-card">
+              <img src="assets/pexels-tima-miroshnichenko-5439479.webp" alt="AI pod">
+              <div class="p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <h6 class="fw-bold mb-0">Applied AI Pod</h6>
+                  <span class="badge bg-warning">On Sprint</span>
+                </div>
+                <div class="small text-muted">Arjun · Finova mesh</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-4">
+            <div class="dash-equip-card">
+              <img src="assets/pexels-mikael-blomkvist-6476259.webp" alt="Cloud pod">
+              <div class="p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <h6 class="fw-bold mb-0">Cloud Mesh Pod</h6>
+                  <span class="badge bg-success">Available</span>
+                </div>
+                <div class="small text-muted">Salem cluster · 6 engineers</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-4">
+            <div class="dash-equip-card">
+              <img src="assets/pexels-kampus-8204363.webp" alt="Strategy pod">
+              <div class="p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <h6 class="fw-bold mb-0">Strategy Pod</h6>
+                  <span class="badge bg-success">Available</span>
+                </div>
+                <div class="small text-muted">Priya · board packs</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-4">
+            <div class="dash-equip-card">
+              <img src="assets/pexels-tima-miroshnichenko-5439476.webp" alt="Cyber pod">
+              <div class="p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <h6 class="fw-bold mb-0">Cyber Resilience</h6>
+                  <span class="badge bg-info">Service</span>
+                </div>
+                <div class="small text-muted">SLA audit in progress</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-4">
+            <div class="dash-equip-card">
+              <img src="assets/pexels-yankrukov-7693155.webp" alt="Growth pod">
+              <div class="p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <h6 class="fw-bold mb-0">Growth Marketing</h6>
+                  <span class="badge bg-warning">On Sprint</span>
+                </div>
+                <div class="small text-muted">Vikram · Aerodyne pack</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section" id="section-bookings">
+        <h2 class="fw-bold mb-1">Client Engagements</h2>
+        <p class="text-muted mb-4">Live sprint pipeline across Salem HQ and remote studios.</p>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--green"><i class="fa-solid fa-calendar-check"></i></div>
+                <div>
+                  <div class="text-muted small">Today</div>
+                  <div class="fs-4 fw-bold">12</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--gold"><i class="fa-solid fa-truck"></i></div>
+                <div>
+                  <div class="text-muted small">In review</div>
+                  <div class="fs-4 fw-bold">5</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--blue"><i class="fa-solid fa-rocket"></i></div>
+                <div>
+                  <div class="text-muted small">In sprint</div>
+                  <div class="fs-4 fw-bold">18</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="dash-stat-card">
+              <div class="d-flex align-items-center gap-3">
+                <div class="dash-stat-card__icon dash-stat-card__icon--purple"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div>
+                  <div class="text-muted small">Needs attention</div>
+                  <div class="fs-4 fw-bold">3</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-filter-chips" id="bookingFilters" role="tablist" aria-label="Filter engagements">
+          <button type="button" class="dash-filter-chip active" data-filter="all">All</button>
+          <button type="button" class="dash-filter-chip" data-filter="in-review">In Review</button>
+          <button type="button" class="dash-filter-chip" data-filter="in-sprint">In Sprint</button>
+          <button type="button" class="dash-filter-chip" data-filter="active">Active</button>
+          <button type="button" class="dash-filter-chip" data-filter="completed">Completed</button>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-lg-8">
+            <div class="dash-card dash-card--scroll rounded-16 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Engagement board</h5>
+                <span class="badge" id="bookingFilterCount" style="background:rgba(191,247,71,.14);color:#BFF747;">6 shown</span>
+              </div>
+              <div class="dash-table-scroll" tabindex="0" aria-label="Engagements table">
+                <table class="table align-middle mb-0" id="bookingsTable">
+                  <thead>
+                    <tr>
+                      <th>Ref</th>
+                      <th>Client</th>
+                      <th>Sprint</th>
+                      <th>Window</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-status="in-review">
+                      <td>#STK-892031</td>
+                      <td>Finova Banking</td>
+                      <td>Rebrand System</td>
+                      <td>Aug 10 – 28</td>
+                      <td>$12,400</td>
+                      <td><span class="badge bg-success">In Review</span></td>
+                      <td><a href="404.html" class="btn btn-sm btn-stackly-outline">Track</a></td>
+                    </tr>
+                    <tr data-status="in-sprint">
+                      <td>#STK-891884</td>
+                      <td>Nexus Health</td>
+                      <td>AI Decision Mesh</td>
+                      <td>Aug 4 – 22</td>
+                      <td>$18,900</td>
+                      <td><span class="badge bg-warning">In Sprint</span></td>
+                      <td><a href="404.html" class="btn btn-sm btn-stackly-outline">Extend</a></td>
+                    </tr>
+                    <tr data-status="completed">
+                      <td>#STK-891220</td>
+                      <td>Aerodyne Global</td>
+                      <td>Growth Pack</td>
+                      <td>Aug 1 – 9</td>
+                      <td>$9,400</td>
+                      <td><span class="badge bg-secondary">Completed</span></td>
+                      <td><a href="404.html" class="btn btn-sm btn-stackly-outline">Invoice</a></td>
+                    </tr>
+                    <tr data-status="active">
+                      <td>#STK-890775</td>
+                      <td>Lumen Retail</td>
+                      <td>Web Platform</td>
+                      <td>Aug 7 – 30</td>
+                      <td>$22,650</td>
+                      <td><span class="badge bg-primary">Active</span></td>
+                      <td><a href="404.html" class="btn btn-sm btn-stackly-outline">Check-in</a></td>
+                    </tr>
+                    <tr data-status="completed">
+                      <td>#STK-890441</td>
+                      <td>Northwind Labs</td>
+                      <td>Cyber Audit</td>
+                      <td>Aug 2 – 6</td>
+                      <td>$11,200</td>
+                      <td><span class="badge bg-secondary">Completed</span></td>
+                      <td><a href="404.html" class="btn btn-sm btn-stackly-outline">Invoice</a></td>
+                    </tr>
+                    <tr data-status="active">
+                      <td>#STK-889902</td>
+                      <td>Helix Logistics</td>
+                      <td>CMO Retainer</td>
+                      <td>Aug 1 – 31</td>
+                      <td>$8,400</td>
+                      <td><span class="badge bg-danger">Late invoice</span></td>
+                      <td><a href="404.html" class="btn btn-sm btn-outline-danger">Chase</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div id="bookingsEmpty" class="text-center py-4 text-muted" hidden>
+                <i class="fa-solid fa-inbox mb-2 d-block" style="font-size:1.5rem;"></i>
+                No engagements in this status right now.
+              </div>
+              <p class="small text-muted mb-0 mt-2 d-md-none"><i class="fa-solid fa-arrows-left-right me-1"></i> Swipe / scroll sideways to see all columns</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="d-flex flex-column h-100" style="gap: 1.5rem;">
+              <div class="dash-card rounded-16">
+                <h5 class="fw-bold mb-3">Priority alerts</h5>
+                <div class="dash-faq-item">
+                  <strong>Late invoice · #STK-889902</strong>
+                  <span>Helix CMO overdue by 4 days · finance queued</span>
+                </div>
+                <div class="dash-faq-item">
+                  <strong>Architect request · Nexus</strong>
+                  <span>HIPAA buyer asked for evening crew backup</span>
+                </div>
+                <div class="dash-faq-item">
+                  <strong>Studio conflict · Brand</strong>
+                  <span>Two Finova reviews overlap at 10:30 AM</span>
+                </div>
+              </div>
+              <div class="dash-fill-panel dash-fill-panel--bg2 d-flex flex-column justify-content-between" style="flex: 1;">
+                <div>
+                  <h6><i class="fa-solid fa-route me-1"></i> Dispatch tip</h6>
+                  <p>Batch Finova + Lumen reviews before 11 AM to free one architect for Nexus HIPAA.</p>
+                </div>
+                <div class="dash-fill-panel__meta mt-auto">
+                  <span class="dash-fill-chip">3 stops</span>
+                  <span class="dash-fill-chip">Save 2 hrs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section" id="section-reports">
+        <h2 class="fw-bold mb-1">Reports</h2>
+        <p class="text-muted mb-4">Revenue, utilization, and pod performance for the Salem agency.</p>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="dash-report-metric">
+              <span>Month revenue</span>
+              <strong>$486K</strong>
+              <em>+14% QoQ</em>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="dash-report-metric">
+              <span>Pod utilization</span>
+              <strong>78%</strong>
+              <em>+6 pts</em>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="dash-report-metric">
+              <span>Avg sprint value</span>
+              <strong>$11.2K</strong>
+              <em>AI led</em>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="dash-report-metric">
+              <span>Partner payouts</span>
+              <strong>$314K</strong>
+              <em>Cleared</em>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-lg-8">
+            <div class="dash-card rounded-16 h-100">
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                <h5 class="fw-bold mb-0">Revenue ($K)</h5>
+                <span class="badge" style="background:rgba(191,247,71,.14);color:#BFF747;">Mar – Aug 2026</span>
+              </div>
+              <div class="dash-chart-wrap" role="img" aria-label="Monthly revenue bar chart from March to August">
+                <div class="dash-chart-y" aria-hidden="true">
+                  <span>500</span><span>400</span><span>300</span><span>200</span><span>100</span><span>0</span>
+                </div>
+                <div class="dash-chart-plot">
+                  <div class="dash-chart-grid" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                  <div class="dash-chart">
+                    <div class="dash-chart__bar-group"><div class="dash-chart__track"><div class="dash-chart__bar" style="height:45%;"><span class="dash-chart__value">225</span></div></div></div>
+                    <div class="dash-chart__bar-group"><div class="dash-chart__track"><div class="dash-chart__bar" style="height:56%;"><span class="dash-chart__value">280</span></div></div></div>
+                    <div class="dash-chart__bar-group"><div class="dash-chart__track"><div class="dash-chart__bar dash-chart__bar--accent" style="height:71%;"><span class="dash-chart__value">355</span></div></div></div>
+                    <div class="dash-chart__bar-group"><div class="dash-chart__track"><div class="dash-chart__bar" style="height:62%;"><span class="dash-chart__value">310</span></div></div></div>
+                    <div class="dash-chart__bar-group"><div class="dash-chart__track"><div class="dash-chart__bar" style="height:80%;"><span class="dash-chart__value">400</span></div></div></div>
+                    <div class="dash-chart__bar-group"><div class="dash-chart__track"><div class="dash-chart__bar dash-chart__bar--accent" style="height:97%;"><span class="dash-chart__value">486</span></div></div></div>
+                  </div>
+                </div>
+                <div class="dash-chart-x" aria-hidden="true">
+                  <span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+                </div>
+              </div>
+              <div class="dash-chart-legend">
+                <span><i class="dash-chart-legend__bar"></i> Monthly revenue ($K)</span>
+                <span><i class="dash-chart-legend__accent"></i> Peak launch months</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="dash-card rounded-16 h-100">
+              <h5 class="fw-bold mb-3">Top categories</h5>
+              <div class="dash-faq-item">
+                <strong>Applied AI · $182K</strong>
+                <span>37% of month revenue · Finova heavy</span>
+              </div>
+              <div class="dash-faq-item">
+                <strong>Brand systems · $126K</strong>
+                <span>Peak mid-week reviews · Sneha studio</span>
+              </div>
+              <div class="dash-faq-item">
+                <strong>Cloud mesh · $91K</strong>
+                <span>Night cutovers sold out through Aug 20</span>
+              </div>
+              <div class="dash-faq-item">
+                <strong>Growth retainers · $54K</strong>
+                <span>Steady Aerodyne feeder demand</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="dash-card rounded-16 h-100">
+              <h6 class="fw-bold mb-3">Pod scorecard</h6>
+              <div class="dash-info-list">
+                <div class="dash-info-item">
+                  <i class="fa-solid fa-building"></i>
+                  <div>
+                    <strong>Salem HQ · 82% util</strong>
+                    <span>$214K revenue · 2 late invoices</span>
+                  </div>
+                </div>
+                <div class="dash-info-item">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                  <div>
+                    <strong>Remote studio · 76% util</strong>
+                    <span>$158K revenue · brand heavy</span>
+                  </div>
+                </div>
+                <div class="dash-info-item">
+                  <i class="fa-solid fa-cloud"></i>
+                  <div>
+                    <strong>Cloud cluster · 71% util</strong>
+                    <span>$114K revenue · mesh surge</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dash-card rounded-16 h-100">
+              <h6 class="fw-bold mb-3">Export &amp; share</h6>
+              <div class="d-grid gap-2">
+                <a href="404.html" class="dash-qa-btn justify-content-center"><i class="fa-solid fa-file-pdf"></i> PDF summary</a>
+                <a href="404.html" class="dash-qa-btn justify-content-center"><i class="fa-solid fa-file-csv"></i> CSV engagements</a>
+                <a href="404.html" class="dash-qa-btn justify-content-center"><i class="fa-solid fa-envelope"></i> Email owners</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="dash-hotline h-100">
+              <div class="dash-hotline__title"><i class="fa-solid fa-chart-line"></i> Insight</div>
+              <span class="dash-hotline__num">+18%</span>
+              <p>AI mesh utilization is the week’s growth driver. Push Finova brand add-ons on Friday gaps to lift average ticket size.</p>
+              <div class="dash-fill-panel__meta" style="margin-top:.85rem;">
+                <span class="dash-fill-chip">Action: promo pack</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section" id="section-staff">
+        <h2 class="fw-bold mb-1">Staff</h2>
+        <p class="text-muted mb-4">Leadership covering Salem HQ and client squads.</p>
+        <div class="row g-3">
+          <div class="col-sm-6 col-xl-3">
+            <div class="dash-card text-center h-100 rounded-16">
+              <img src="assets/team_arjun.webp" alt="Arjun Ramanathan" class="dash-staff-photo mx-auto mb-3">
+              <h6 class="fw-bold mb-0">Arjun Ramanathan</h6>
+              <div class="small text-muted mb-2">Managing Partner &amp; CEO</div>
+              <span class="badge bg-success mb-3">On Duty</span>
+              <div class="dash-info-item text-start mt-1">
+                <i class="fa-solid fa-tower-broadcast"></i>
+                <div>
+                  <strong>Command desk</strong>
+                  <span>Approvals · partner escalations · Ext. 201</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="dash-card text-center h-100 rounded-16">
+              <img src="assets/team_priya.webp" alt="Priya Swaminathan" class="dash-staff-photo mx-auto mb-3">
+              <h6 class="fw-bold mb-0">Priya Swaminathan</h6>
+              <div class="small text-muted mb-2">VP of Corporate Strategy</div>
+              <span class="badge bg-success mb-3">On Duty</span>
+              <div class="dash-info-item text-start mt-1">
+                <i class="fa-solid fa-chess"></i>
+                <div>
+                  <strong>Board packs</strong>
+                  <span>Retainers · ROI models · Nexus HIPAA</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="dash-card text-center h-100 rounded-16">
+              <img src="assets/team_sneha.webp" alt="Sneha Iyer" class="dash-staff-photo mx-auto mb-3">
+              <h6 class="fw-bold mb-0">Sneha Iyer</h6>
+              <div class="small text-muted mb-2">Creative Brand Director</div>
+              <span class="badge bg-secondary mb-3">Studio</span>
+              <div class="dash-info-item text-start mt-1">
+                <i class="fa-solid fa-palette"></i>
+                <div>
+                  <strong>Brand studio</strong>
+                  <span>Identity systems · launch films</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="dash-card text-center h-100 rounded-16">
+              <img src="assets/team_vikram.webp" alt="Vikram Sethi" class="dash-staff-photo mx-auto mb-3">
+              <h6 class="fw-bold mb-0">Vikram Sethi</h6>
+              <div class="small text-muted mb-2">Head of Marketing</div>
+              <span class="badge bg-warning mb-3">On Call</span>
+              <div class="dash-info-item text-start mt-1">
+                <i class="fa-solid fa-bullhorn"></i>
+                <div>
+                  <strong>Growth desk</strong>
+                  <span>Demand sprints · CMO retainers</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="dash-logout-modal" id="logoutModal" aria-hidden="true" role="dialog" aria-labelledby="logoutTitle">
+    <div class="dash-logout-modal__card">
+      <div class="dash-logout-modal__icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+      <h3 id="logoutTitle">Leave the command desk?</h3>
+      <p>You’re about to sign out of the Stackly admin console. Live ops queues stay in place for the next shift.</p>
+      <div class="dash-logout-modal__actions">
+        <button type="button" class="btn btn-stackly-outline" id="cancelLogout">Stay Signed In</button>
+        <button type="button" class="btn btn-danger" id="confirmLogout">Yes, Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="main.js?v=8.0"></script>
+</body>
+</html>

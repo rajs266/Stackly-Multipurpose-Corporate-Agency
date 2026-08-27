@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — FinTech & Fleet Insights | Stackly Corporate Agency</title>
+  <meta name="description" content="Stackly FinTech Insights: cloud maintenance, AI pipeline analytics, Q4 prep, scale tips, and secure architecture guides for Tamil Nadu clients.">
+  <link rel="icon" type="image/webp" href="assets/top-logo.webp">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+
+  
+  <link rel="stylesheet" href="style.css?v=7.0">
+
+  <style>
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 18px rgba(191,247,71,.3);}50%{box-shadow:0 0 40px rgba(191,247,71,.6);} }
+    @keyframes floatY { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
+    @keyframes chipIn { from{opacity:0;transform:translateY(12px) scale(0.96);} to{opacity:1;transform:translateY(0) scale(1);} }
+
+    
+    .blog-hero { position:relative; min-height:80vh; display:flex; align-items:center; overflow:hidden; }
+    .blog-hero__bg {
+      position:absolute; inset:0;
+      background-image:url('assets/pexels-yankrukov-7793726.webp');
+      background-size:cover; background-position:center;
+      transform:scale(1.08); will-change:transform;
+    }
+    .blog-hero__overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(11,11,11,.92) 0%, rgba(11,11,11,.74) 60%, rgba(11,11,11,.92) 100%);
+    }
+    .blog-hero__content { position:relative; z-index:3; }
+
+    .eyebrow-pill {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(191,247,71,.1); border:1px solid rgba(191,247,71,.3);
+      border-radius:100px; padding:6px 18px;
+      font-size:.78rem; font-weight:700; letter-spacing:.12em;
+      color:#BFF747; text-transform:uppercase; margin-bottom:22px;
+    }
+    .eyebrow-pill .dot { width:7px; height:7px; border-radius:50%; background:#BFF747; animation:glowPulse 1.8s infinite; }
+
+    .sec-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(191,247,71,.08); border:1px solid rgba(191,247,71,.2);
+      border-radius:100px; padding:5px 16px;
+      font-size:.72rem; font-weight:700; letter-spacing:.12em;
+      color:#BFF747; text-transform:uppercase; margin-bottom:14px;
+    }
+    .page-title {
+      font-family:'Outfit',sans-serif;
+      font-size:clamp(2.4rem,5.2vw,4rem);
+      font-weight:900; line-height:1.1; color:#fff; margin-bottom:20px;
+    }
+    .page-title .accent { color:#BFF747; }
+    .sec-title {
+      font-family:'Outfit',sans-serif;
+      font-size:clamp(1.9rem,3.8vw,2.8rem);
+      font-weight:800; color:#fff; margin-bottom:14px; line-height:1.12;
+    }
+    .sec-title .accent { color:#BFF747; }
+    .sec-body { font-size:1rem; color:rgba(255,255,255,.55); line-height:1.72; max-width:620px; }
+
+    
+    .featured-story-card {
+      background:#111; border:1.5px solid #242424; border-radius:24px;
+      overflow:hidden; transition:border-color .35s, box-shadow .38s;
+    }
+    .featured-story-card:hover {
+      border-color:rgba(191,247,71,.45);
+      box-shadow:0 24px 60px rgba(0,0,0,.65), 0 0 28px rgba(191,247,71,.12);
+    }
+    .featured-media-box {
+      position:relative; border-radius:20px; overflow:hidden;
+      border:1px solid #282828; height:310px; min-height:260px; max-height:320px;
+    }
+    .featured-media-box img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform .6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .featured-story-card:hover .featured-media-box img { transform:scale(1.06); }
+    .featured-cat-tag {
+      display:inline-block; background:rgba(191,247,71,.15); border:1px solid rgba(191,247,71,.35);
+      color:#BFF747; font-size:.7rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; border-radius:100px; padding:4px 14px; margin-bottom:14px;
+    }
+
+    
+    .filter-chips-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:46px; }
+    .filter-chip {
+      background:rgba(255,255,255,.04); border:1.5px solid #282828; color:rgba(255,255,255,.6);
+      border-radius:100px; padding:9px 24px; font-size:.84rem; font-weight:600;
+      letter-spacing:.04em; cursor:pointer; transition:all .28s cubic-bezier(0.16,1,0.3,1);
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .filter-chip:hover { border-color:#BFF747; color:#BFF747; transform:translateY(-2px); }
+    .filter-chip.active {
+      background:rgba(191,247,71,.12); border-color:#BFF747; color:#BFF747;
+      box-shadow:0 0 16px rgba(191,247,71,.2);
+    }
+
+    
+    .pro-blog-card {
+      background:#111; border:1.5px solid #242424; border-radius:22px;
+      overflow:hidden; height:100%; display:flex; flex-direction:column;
+      transition:transform .38s cubic-bezier(0.16,1,0.3,1), border-color .35s, box-shadow .38s;
+    }
+    .pro-blog-card:hover {
+      transform:translateY(-8px); border-color:rgba(191,247,71,.5);
+      box-shadow:0 22px 50px rgba(0,0,0,.65), 0 0 24px rgba(191,247,71,.14);
+    }
+    .pro-blog-card__img {
+      position:relative; height:220px; overflow:hidden; background:#181818;
+    }
+    .pro-blog-card__img img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .55s cubic-bezier(0.16,1,0.3,1);
+    }
+    .pro-blog-card:hover .pro-blog-card__img img { transform:scale(1.08); }
+    .pro-blog-card__cat {
+      position:absolute; top:14px; left:14px;
+      background:rgba(11,11,11,.85); border:1px solid rgba(191,247,71,.35);
+      color:#BFF747; font-size:.65rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; border-radius:100px; padding:4px 12px;
+      backdrop-filter:blur(6px);
+    }
+    .pro-blog-card__body {
+      padding:24px 22px 22px; flex:1; display:flex; flex-direction:column; justify-content:space-between;
+    }
+    .pro-blog-card__meta {
+      font-size:.78rem; color:rgba(255,255,255,.45); margin-bottom:12px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .pro-blog-card__meta i { color:#BFF747; margin-right:4px; }
+    .pro-blog-card__title {
+      font-family:'Outfit',sans-serif; font-weight:800; font-size:1.15rem;
+      color:#fff; margin-bottom:10px; line-height:1.35;
+      transition:color .25s;
+    }
+    .pro-blog-card:hover .pro-blog-card__title { color:#BFF747; }
+    .pro-blog-card__desc {
+      font-size:.86rem; color:rgba(255,255,255,.52); line-height:1.65; margin-bottom:18px;
+    }
+    .pro-blog-card__link {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:.84rem; font-weight:700; color:#BFF747; text-decoration:none;
+      transition:gap .25s ease;
+    }
+    .pro-blog-card__link:hover { gap:12px; color:#BFF747; }
+
+    
+    .newsletter-panel {
+      background:linear-gradient(135deg, #111a12 0%, #0d120e 55%, #111a12 100%);
+      border:1.5px solid rgba(191,247,71,.25); border-radius:24px;
+      padding:48px 40px; box-shadow:0 20px 50px rgba(0,0,0,.5);
+    }
+    .newsletter-form-group {
+      display:flex; gap:12px; align-items:center;
+    }
+    .newsletter-form-group input {
+      flex:1; background:#0B0B0B; border:1.5px solid #282828;
+      border-radius:12px; padding:15px 20px; color:#fff; font-size:.95rem;
+      outline:none; transition:all .25s;
+    }
+    .newsletter-form-group input:focus {
+      border-color:#BFF747; box-shadow:0 0 0 3px rgba(191,247,71,.12);
+    }
+    .newsletter-form-group input::placeholder { color:rgba(255,255,255,.32); }
+
+    .hidden { display:none!important; }
+    .show-anim { animation:chipIn .38s cubic-bezier(0.16,1,0.3,1) both; }
+    .cta-band { background:linear-gradient(135deg,#0d0d0d 0%,#141814 50%,#0d0d0d 100%); border-top:1px solid #242424; border-bottom:1px solid #242424; }
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+
+  
+  
+  <div class="nav-overlay" id="navOverlay">
+    <div class="nav-overlay__header">
+      <button type="button" class="nav-overlay__close" id="overlayCloseBtn" aria-label="Close menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="nav-overlay__brand">
+        <img src="assets/logo.webp" alt="Stackly Corporate" width="130" height="42" style="object-fit: contain;">
+      </a>
+    </div>
+    <div class="nav-overlay__content">
+      <ul class="nav-overlay__list">
+        <li class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></li>
+        <li class="nav-overlay__item"><a href="about.html" class="nav-overlay__link">About</a></li>
+        <li class="nav-overlay__item"><a href="services.html" class="nav-overlay__link">Services</a></li>
+        <li class="nav-overlay__item"><a href="team.html" class="nav-overlay__link">Team</a></li>
+        <li class="nav-overlay__item"><a href="blog.html" class="nav-overlay__link">Blog</a></li>
+        <li class="nav-overlay__item"><a href="contact.html" class="nav-overlay__link">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-overlay__footer">
+      <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+        <a href="signin.html" class="btn-stackly-dark-pill"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+        <a href="get-started.html" class="btn-style-one py-2 px-3">
+          <span class="btn-title">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></span>
+          <span class="dot-box"><span class="dot-item"></span></span>
+        </a>
+      </div>
+      <p class="mb-0 text-white-50 small">&copy; 2026 Stackly Corporate Agency. Salem, TN.</p>
+    </div>
+  </div>
+
+  
+  <div id="stackly-preloader">
+    <div class="preloader-bg-glow"></div>
+    <div class="preloader-bg-glow-secondary"></div>
+    <div class="preloader-grid-lines"></div>
+    <div class="preloader-particles">
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+    </div>
+    <div class="preloader-content">
+      <div class="preloader-circle-wrapper">
+        <div class="circle-ring ring-outer-spin"></div>
+        <div class="circle-ring ring-middle-pulse"></div>
+        <div class="circle-ring ring-inner-orbit">
+          <span class="orbit-dot dot-1"></span>
+          <span class="orbit-dot dot-2"></span>
+          <span class="orbit-dot dot-3"></span>
+          <span class="orbit-dot dot-4"></span>
+        </div>
+        <div class="preloader-logo-box">
+          <img src="assets/top-logo.webp" alt="Stackly Logo" class="preloader-logo-img">
+          <div class="logo-shimmer"></div>
+        </div>
+      </div>
+      <div class="preloader-bar-container">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill">
+            <div class="progress-glow-tip"></div>
+          </div>
+        </div>
+        <div class="preloader-meta d-flex justify-content-between align-items-center mt-2">
+          <span class="preloader-status-text" id="preloader-status-text">INITIALIZING ENTERPRISE ENVIRONMENT...</span>
+          <span class="preloader-pct-badge"><span id="preloader-pct-num">0</span>%</span>
+        </div>
+        <div class="preloader-soundwave">
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scrollProgressBar"></div>
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-ring"></div>
+
+  
+  <div class="top-bar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+      <div class="d-flex align-items-center gap-3">
+        <span><i class="fa-solid fa-location-dot text-lime me-1"></i> MMR Complex, Chinna Thirupathi, Salem, TN 636008</span>
+        <span class="d-none d-md-inline"><i class="fa-solid fa-phone text-lime me-1"></i> +91 98765 43210</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  
+  <nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><img src="assets/logo.webp" alt="Stackly" class="brand-logo-img"></a>
+      <button class="navbar-toggler stackly-burger-btn collapsed" type="button" id="mobileMenuToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="collapse navbar-collapse" id="blogNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <a href="signin.html" class="btn-stackly-dark-pill text-nowrap"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+          <a href="get-started.html" class="btn-style-one text-nowrap py-2 px-3">
+            <span class="btn-title">Get Started</span><span class="dot-box"><span class="dot-item"></span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+  <header class="blog-hero" id="blogHero">
+    <div class="blog-hero__bg" id="blogHeroBg"></div>
+    <div class="blog-hero__overlay"></div>
+    <div class="ambient-green-glow ambient-glow-top-right" style="opacity:.3;"></div>
+    <div class="container blog-hero__content text-center py-5">
+      <div class="reveal-init reveal-fade-up">
+        <div class="eyebrow-pill"><span class="dot"></span> FINTECH & CLOUD INSIGHTS</div>
+      </div>
+      <h1 class="page-title mt-2 reveal-init reveal-fade-up delay-1" data-scroll-title>Field Notes for Modern <span class="accent">Machinery</span></h1>
+      <p class="text-light-muted mx-auto mb-4 reveal-init reveal-fade-up delay-2" style="max-width:600px;line-height:1.72;font-size:1.05rem;">
+        Practical maintenance blueprints, AI pipeline tactics, scale timing strategies, and Q4-ready cloud setups from Stackly's Salem specialists.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 reveal-init reveal-fade-up delay-3">
+        <a href="#blogCatalog" class="btn-lime-solid"><span>Explore Articles</span><i class="fas fa-arrow-down ms-2"></i></a>
+        <a href="#newsletterSection" class="btn-stackly-dark-pill px-4 py-2"><i class="fas fa-envelope text-lime me-2"></i> Subscribe</a>
+      </div>
+    </div>
+  </header>
+
+  
+  <section class="py-5" style="background:#0B0B0B;">
+    <div class="container">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-star"></i> Editor's Pick</div>
+        <h2 class="sec-title" data-scroll-title>This Week's <span class="accent">Deep Dive</span></h2>
+        <p class="sec-body mx-auto">A comprehensive field investigation into combine selection for Tamil Nadu's soft soil belts.</p>
+      </div>
+
+      <div class="featured-story-card p-3 p-lg-4">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6 gsap-slide-left">
+            <div class="featured-media-box">
+              <img src="assets/pexels-pavel-danilyuk-7654128.webp" alt="Combine harvester working a paddy field" loading="lazy">
+            </div>
+          </div>
+          <div class="col-lg-6 gsap-slide-right">
+            <span class="featured-cat-tag"><i class="fa-solid fa-chart-pie me-1"></i> HARVEST OPERATIONS</span>
+            <div class="text-light-muted small mb-3 d-flex align-items-center gap-3">
+              <span><i class="fa-regular fa-calendar text-lime me-1"></i> Aug 8, 2026</span>
+              <span><i class="fa-regular fa-user text-lime me-1"></i> Ramesh Sundaram</span>
+              <span><i class="fa-regular fa-clock text-lime me-1"></i> 6 min read</span>
+            </div>
+            <h2 class="h3 fw-bold text-white mb-3" style="line-height:1.35;">
+              Tracked vs Wheeled Combines for <span class="text-lime">Wet-Season Harvests</span>
+            </h2>
+            <p class="text-light-muted mb-4" style="line-height:1.75;font-size:.95rem;">
+              Compare mud traction, grain loss ratios, fuel burn rates, and inter-district transport costs before you book a harvester for the upcoming paddy flush. Our Salem fleet engineers share what holds up when fields stay flooded after heavy rains.
+            </p>
+            <div class="d-flex align-items-center gap-3">
+              <a href="404.html" class="btn-lime-solid"><span>Read Full Blueprint</span><i class="fas fa-arrow-right ms-2"></i></a>
+              <a href="services.html" class="btn-stackly-dark-pill px-3 py-2"><i class="fa-solid fa-truck-ramp-box text-lime me-2"></i> Book Harvester</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5 position-relative" style="background:#0d0d0d;" id="blogCatalog">
+    <div class="ambient-green-glow ambient-glow-top-left" style="opacity:.15;"></div>
+    <div class="container position-relative" style="z-index:2;">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-bookmark"></i> Knowledge Base</div>
+        <h2 class="sec-title" data-scroll-title>Latest from the <span class="accent">FinTech Desk</span></h2>
+        <p class="sec-body mx-auto">Maintenance checklists, AI pipeline logs, secure architecture guides, and seasonal dispatch tactics.</p>
+      </div>
+
+      
+      <div class="filter-chips-bar stagger-children" id="blogFilters">
+        <button type="button" class="filter-chip active" data-cat="all"><i class="fas fa-layer-group"></i> All Topics</button>
+        <button type="button" class="filter-chip" data-cat="frameworks"><i class="fas fa-chart-pie"></i> Strategy</button>
+        <button type="button" class="filter-chip" data-cat="pipelines"><i class="fas fa-robot"></i> AI Tech</button>
+        <button type="button" class="filter-chip" data-cat="harvest"><i class="fas fa-wheat-awn"></i> Harvesting</button>
+        <button type="button" class="filter-chip" data-cat="irrigation"><i class="fas fa-sun"></i> Solar Irrigation</button>
+      </div>
+
+      
+      <div class="row g-4 stagger-children" id="blogGrid">
+        
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="frameworks">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-kampus-8204363.webp" alt="4WD Framework pre-rental check" loading="lazy">
+              <span class="pro-blog-card__cat">Strategy</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Aug 10, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Admin</span>
+                </div>
+                <h5 class="pro-blog-card__title">10 Essential Pre-Hire Checks for 4WD Strategy</h5>
+                <p class="pro-blog-card__desc">Hydraulic pressure tests, PTO shield inspections, and hitch geometry checks to eliminate mid-tillage failures.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="pipelines">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-tima-miroshnichenko-5439479.webp" alt="AI Pipeline Server" loading="lazy">
+              <span class="pro-blog-card__cat" style="color:#a78bfa;border-color:rgba(167,139,250,.35);">AI Tech</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Aug 4, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Priya V.</span>
+                </div>
+                <h5 class="pro-blog-card__title">How RTK Data Analytics Cuts Chemical Input Costs by 35%</h5>
+                <p class="pro-blog-card__desc">Centimeter-level autonomous spray flight paths and calibrated droplet atomization for Salem paddy fields.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="frameworks">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-tima-miroshnichenko-5439476.webp" alt="Rotary Tiller setup" loading="lazy">
+              <span class="pro-blog-card__cat">Strategy</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Jul 28, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Karthik R.</span>
+                </div>
+                <h5 class="pro-blog-card__title">Monsoon Prep: Rotary Tiller Blade Depth Calibration</h5>
+                <p class="pro-blog-card__desc">Flange bolt torques, gearbox oil grades, and slip clutch calibrations engineered for sticky Tamil Nadu black clay.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="irrigation">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-mart-production-7550362.webp" alt="Solar irrigation pump" loading="lazy">
+              <span class="pro-blog-card__cat" style="color:#fbbf24;border-color:rgba(251,191,36,.35);">Solar Irrigation</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Jul 20, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Anitha S.</span>
+                </div>
+                <h5 class="pro-blog-card__title">Cloud Architecture Sizing for Enterprise Micro-Services Grids</h5>
+                <p class="pro-blog-card__desc">Calculating dynamic head, panel wattage arrays, and VFD controller settings for continuous drip delivery.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="harvest">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-yankrukov-7693155.webp" alt="Harvester queue booking" loading="lazy">
+              <span class="pro-blog-card__cat" style="color:#60a5fa;border-color:rgba(96,165,250,.35);">Harvesting</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Jul 12, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Suresh N.</span>
+                </div>
+                <h5 class="pro-blog-card__title">Peak Harvest Scheduling: Avoiding Spot-Rate Surges</h5>
+                <p class="pro-blog-card__desc">How cluster-booking with global networks locks in priority transport slots and lower hourly operator rates.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="harvest">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-yankrukov-7693686.webp" alt="Baler Planter pairing" loading="lazy">
+              <span class="pro-blog-card__cat" style="color:#60a5fa;border-color:rgba(96,165,250,.35);">Harvesting</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Jul 5, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Ramesh S.</span>
+                </div>
+                <h5 class="pro-blog-card__title">Baler &amp; Planter Workflows for 48-Hour Field Turnaround</h5>
+                <p class="pro-blog-card__desc">Coordinating straw baling with zero-till planters to seed next-season pulses while residual moisture lasts.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="frameworks">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-yankrukov-7691675.webp" alt="Seasonal maintenance" loading="lazy">
+              <span class="pro-blog-card__cat">Strategy</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Jun 26, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Karthik R.</span>
+                </div>
+                <h5 class="pro-blog-card__title">Tamil Nadu Corporate Digital Security Maintenance Matrix</h5>
+                <p class="pro-blog-card__desc">A monthly service interval guide for heavy diesel injectors, hydraulic filters, air scrubbers, and hub seals.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="irrigation">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-mikael-blomkvist-6476259.webp" alt="Eco digital gear" loading="lazy">
+              <span class="pro-blog-card__cat" style="color:#fbbf24;border-color:rgba(251,191,36,.35);">Solar Irrigation</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Jun 18, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Priya V.</span>
+                </div>
+                <h5 class="pro-blog-card__title">Smart Irrigation Sensors: Minimizing Aquifer Depletion</h5>
+                <p class="pro-blog-card__desc">Using LoRaWAN soil moisture probes to trigger automated solar pumping only when root zones drop below 28%.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 blog-card-col" data-cat="pipelines">
+          <article class="pro-blog-card">
+            <div class="pro-blog-card__img">
+              <img src="assets/pexels-tima-miroshnichenko-7567558.webp" alt="Aerial NDVI mapping" loading="lazy">
+              <span class="pro-blog-card__cat" style="color:#a78bfa;border-color:rgba(167,139,250,.35);">AI Tech</span>
+            </div>
+            <div class="pro-blog-card__body">
+              <div>
+                <div class="pro-blog-card__meta">
+                  <span><i class="fa-regular fa-calendar"></i> Jun 10, 2026</span>
+                  <span><i class="fa-regular fa-user"></i> Deepika S.</span>
+                </div>
+                <h5 class="pro-blog-card__title">Multidimensional AI Data Health Indexing in Enterprises</h5>
+                <p class="pro-blog-card__desc">Identifying early stage nitrogen deficiency and stalk borer infestations weeks before symptoms appear visually.</p>
+              </div>
+              <a href="404.html" class="pro-blog-card__link">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5" style="background:#0B0B0B;" id="downloadSection">
+    <div class="container">
+      <div class="newsletter-panel gsap-zoom-in" style="background: linear-gradient(145deg, #111, #1a1a1a); border-color: rgba(191,247,71,0.2);">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-7">
+            <div class="sec-eyebrow mb-2"><i class="fa-solid fa-file-pdf"></i> Exclusive Whitepaper</div>
+            <h3 class="h2 fw-bold text-white mb-2" style="font-family:'Outfit',sans-serif;">The 2026 Future of <span class="text-lime">Corporate AI</span></h3>
+            <p class="text-light-muted mb-0" style="font-size:.95rem;line-height:1.7;">
+              Discover the exact blueprints and scaling strategies top enterprises are using this year to automate operations, reduce costs, and dominate their sectors.
+            </p>
+          </div>
+          <div class="col-lg-5 text-lg-end">
+            <a href="404.html" class="btn-lime-solid" style="padding: 16px 28px; font-size: 1.05rem; width: 100%; justify-content: center;">
+              <i class="fas fa-cloud-arrow-down me-2"></i><span>Download Free Report</span>
+            </a>
+            <div class="mt-3 text-light-muted small text-center text-lg-end">
+              <i class="fas fa-shield-alt text-lime me-1"></i> Secure PDF Download (4.2 MB)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer class="creovio-mega-footer bg-architectural-grid">
+    <div class="ambient-green-glow ambient-glow-top-left" style="opacity: 0.7;"></div>
+
+    <div class="container position-relative" style="z-index: 2;">
+      
+      <div class="footer-newsletter-box">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <span class="badge-pill-sub mb-2"><span class="badge-dot"></span> STAY AHEAD</span>
+            <h3 class="fw-bold text-white mb-1">Subscribe to Stackly Engineering Dispatch</h3>
+            <p class="text-light-muted small mb-0">Weekly architectural deep dives, AI research notes, and enterprise cloud blueprints.</p>
+          </div>
+          <div class="col-lg-6">
+            <form class="footer-newsletter-input-group" onsubmit="event.preventDefault(); window.location.href='404.html';">
+              <input type="email" placeholder="Enter your enterprise email..." required>
+              <button type="submit" class="btn-style-one py-2 px-3">
+                <span class="btn-title">Subscribe</span>
+                <span class="dot-box"><span class="dot-item"></span></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="row g-4">
+        
+        <div class="col-lg-4 col-md-6">
+          <a href="index.html" class="d-inline-block mb-3">
+            <img src="assets/logo.webp" alt="Stackly" style="height: 38px;">
+          </a>
+          <p class="text-light-muted small mb-4 pe-lg-4" style="max-width: 290px; line-height: 1.7;">
+            Stackly is an enterprise multipurpose technology agency architecting distributed cloud backbones, autonomous AI systems, and modern digital interfaces. We empower global brands with highly scalable and resilient software infrastructures.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-2 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Quick Links</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="index.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Home</a></li>
+            <li class="mb-2"><a href="about.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> About</a></li>
+            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Services</a></li>
+            <li class="mb-2"><a href="team.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Team</a></li>
+            <li class="mb-2"><a href="blog.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Blog</a></li>
+            <li class="mb-2"><a href="contact.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Our Solutions</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-bolt text-lime me-2"></i> Hyperscale Cloud Infrastructure</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-brain text-lime me-2"></i> Neural AI & LLM Systems</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-shield-alt text-lime me-2"></i> Zero-Trust Cyber Security</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-code text-lime me-2"></i> React & Next.js Platforms</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-microchip text-lime me-2"></i> Salem Physical Innovation Lab</a></li>
+              <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-server text-lime me-2"></i> Enterprise Cloud Architecture</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Contact Info</h5>
+          <ul class="list-unstyled text-light-muted small">
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-envelope text-lime"></i>
+              <span>contact@thestackly.com</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-phone text-lime"></i>
+              <span>+91 98765 43210</span>
+            </li>
+            <li class="d-flex align-items-start gap-2 mb-3">
+              <i class="fa-solid fa-location-dot text-lime mt-1"></i>
+              <span>MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-clock text-lime"></i>
+              <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="footer-bottom-bar d-flex flex-wrap justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
+        <div class="small text-light-muted">
+          &copy; 2026 Stackly Multipurpose Corporate Agency. All rights reserved. Salem HQ, Tamil Nadu.
+        </div>
+        <div class="d-flex gap-3 mt-2 mt-md-0">
+          <a href="404.html" class="text-decoration-none text-light-muted small">Privacy Policy</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Terms of Service</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Security Center</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js?v=7.0"></script>
+  <script>
+    
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to('#blogHeroBg', { yPercent: 28, ease: 'none', scrollTrigger: { trigger: '#blogHero', start: 'top top', end: 'bottom top', scrub: true } });
+    }
+
+    
+    document.querySelectorAll('#blogFilters .filter-chip').forEach(chip => {
+      chip.addEventListener('click', function () {
+        document.querySelectorAll('#blogFilters .filter-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        const cat = this.dataset.cat;
+        document.querySelectorAll('#blogGrid .blog-card-col').forEach(card => {
+          if (cat === 'all' || card.dataset.cat === cat) {
+            card.classList.remove('hidden');
+            card.classList.add('show-anim');
+            setTimeout(() => card.classList.remove('show-anim'), 400);
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

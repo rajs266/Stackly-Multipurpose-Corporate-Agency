@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leadership & Squads | Stackly Corporate Digital Agency</title>
+  <meta name="description" content="Meet the principal cloud engineers, AI data specialists, and operations directors leading Stackly's statewide corporate digital marketplace.">
+  <link rel="icon" type="image/webp" href="assets/top-logo.webp">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+
+  
+  <link rel="stylesheet" href="style.css?v=7.0">
+
+  <style>
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 18px rgba(191,247,71,.3);}50%{box-shadow:0 0 40px rgba(191,247,71,.6);} }
+    @keyframes floatY { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
+    @keyframes chipIn { from{opacity:0;transform:translateY(12px) scale(0.96);} to{opacity:1;transform:translateY(0) scale(1);} }
+
+    
+    .team-hero { position:relative; min-height:80vh; display:flex; align-items:center; overflow:hidden; }
+    .team-hero__bg {
+      position:absolute; inset:0;
+      background-image:url('assets/pexels-yankrukov-7691675.webp');
+      background-size:cover; background-position:center;
+      transform:scale(1.08); will-change:transform;
+    }
+    .team-hero__overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(11,11,11,.92) 0%, rgba(11,11,11,.74) 60%, rgba(11,11,11,.92) 100%);
+    }
+    .team-hero__content { position:relative; z-index:3; }
+
+    .eyebrow-pill {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(191,247,71,.1); border:1px solid rgba(191,247,71,.3);
+      border-radius:100px; padding:6px 18px;
+      font-size:.78rem; font-weight:700; letter-spacing:.12em;
+      color:#BFF747; text-transform:uppercase; margin-bottom:22px;
+    }
+    .eyebrow-pill .dot { width:7px; height:7px; border-radius:50%; background:#BFF747; animation:glowPulse 1.8s infinite; }
+
+    .sec-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(191,247,71,.08); border:1px solid rgba(191,247,71,.2);
+      border-radius:100px; padding:5px 16px;
+      font-size:.72rem; font-weight:700; letter-spacing:.12em;
+      color:#BFF747; text-transform:uppercase; margin-bottom:14px;
+    }
+    .page-title {
+      font-family:'Outfit',sans-serif;
+      font-size:clamp(2.4rem,5.2vw,4rem);
+      font-weight:900; line-height:1.1; color:#fff; margin-bottom:20px;
+    }
+    .page-title .accent { color:#BFF747; }
+    .sec-title {
+      font-family:'Outfit',sans-serif;
+      font-size:clamp(1.9rem,3.8vw,2.8rem);
+      font-weight:800; color:#fff; margin-bottom:14px; line-height:1.12;
+    }
+    .sec-title .accent { color:#BFF747; }
+    .sec-body { font-size:1rem; color:rgba(255,255,255,.55); line-height:1.72; max-width:620px; }
+
+    
+    .filter-chips-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:46px; }
+    .filter-chip {
+      background:rgba(255,255,255,.04); border:1.5px solid #282828; color:rgba(255,255,255,.6);
+      border-radius:100px; padding:9px 24px; font-size:.84rem; font-weight:600;
+      letter-spacing:.04em; cursor:pointer; transition:all .28s cubic-bezier(0.16,1,0.3,1);
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .filter-chip:hover { border-color:#BFF747; color:#BFF747; transform:translateY(-2px); }
+    .filter-chip.active {
+      background:rgba(191,247,71,.12); border-color:#BFF747; color:#BFF747;
+      box-shadow:0 0 16px rgba(191,247,71,.2);
+    }
+
+    
+    .pro-team-card {
+      background:#111; border:1.5px solid #242424; border-radius:22px;
+      overflow:hidden; height:100%; display:flex; flex-direction:column;
+      transition:transform .38s cubic-bezier(0.16,1,0.3,1), border-color .35s, box-shadow .38s;
+      position:relative;
+    }
+    .pro-team-card:hover {
+      transform:translateY(-8px); border-color:rgba(191,247,71,.5);
+      box-shadow:0 22px 50px rgba(0,0,0,.65), 0 0 24px rgba(191,247,71,.15);
+    }
+    .pro-team-card__media {
+      position:relative; height:280px; overflow:hidden;
+      background:#181818;
+    }
+    .pro-team-card__media img { transform-origin: bottom center;
+      width:100%; height:100%; object-fit:cover; object-position:top center;
+      transition:transform .55s cubic-bezier(0.16,1,0.3,1);
+    }
+    .pro-team-card:hover .pro-team-card__media img { transform-origin: bottom center; transform:scale(1.08); }
+    .pro-team-card__shade {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(17,17,17,.95) 0%, rgba(17,17,17,.2) 50%, transparent 100%);
+    }
+    .pro-team-card__badge {
+      position:absolute; top:14px; left:14px;
+      background:rgba(11,11,11,.85); border:1px solid rgba(191,247,71,.3);
+      border-radius:100px; padding:4px 12px;
+      font-size:.65rem; font-weight:700; letter-spacing:.1em;
+      color:#BFF747; text-transform:uppercase; backdrop-filter:blur(6px);
+    }
+    .pro-team-card__socials {
+      position:absolute; bottom:14px; left:50%; transform:translateX(-50%) translateY(35px);
+      opacity:0; display:flex; gap:8px; transition:all .35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .pro-team-card:hover .pro-team-card__socials { opacity:1; transform:translateX(-50%) translateY(0); }
+    .pro-team-card__socials a {
+      width:34px; height:34px; border-radius:10px;
+      background:rgba(11,11,11,.88); border:1px solid rgba(191,247,71,.35);
+      color:#BFF747; display:flex; align-items:center; justify-content:center;
+      font-size:.82rem; text-decoration:none; transition:all .22s;
+    }
+    .pro-team-card__socials a:hover { background:#BFF747; color:#000; transform:scale(1.1); }
+    .pro-team-card__body { padding:22px 20px 24px; flex:1; display:flex; flex-direction:column; justify-content:space-between; }
+    .pro-team-card__name { font-family:'Outfit',sans-serif; font-weight:800; font-size:1.2rem; color:#fff; margin-bottom:4px; }
+    .pro-team-card__role { font-size:.82rem; font-weight:600; color:#BFF747; text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+    .pro-team-card__desc { font-size:.85rem; color:rgba(255,255,255,.5); line-height:1.6; margin:0; }
+
+    
+    .award-card {
+      background:#111; border:1.5px solid #242424; border-radius:20px;
+      padding:32px 26px; text-align:center; height:100%;
+      transition:all .35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .award-card:hover {
+      border-color:#BFF747; transform:translateY(-6px);
+      box-shadow:0 18px 42px rgba(0,0,0,.55), 0 0 20px rgba(191,247,71,.12);
+    }
+    .award-icon {
+      width:58px; height:58px; border-radius:16px;
+      background:rgba(191,247,71,.1); border:1px solid rgba(191,247,71,.25);
+      color:#BFF747; display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem; margin:0 auto 18px;
+    }
+
+    
+    .metric-box {
+      background:#111; border:1.5px solid #242424; border-radius:20px;
+      padding:28px 20px; text-align:center; height:100%;
+      transition:border-color .35s, transform .35s;
+    }
+    .metric-box:hover { border-color:#BFF747; transform:translateY(-5px); }
+    .metric-num { font-family:'Outfit',sans-serif; font-size:2.8rem; font-weight:900; color:#BFF747; line-height:1; margin-bottom:8px; }
+    .metric-label { font-size:.78rem; font-weight:700; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.08em; }
+
+    .hidden { display:none!important; }
+    .show-anim { animation:chipIn .38s cubic-bezier(0.16,1,0.3,1) both; }
+    .cta-band { background:linear-gradient(135deg,#0d0d0d 0%,#141814 50%,#0d0d0d 100%); border-top:1px solid #242424; border-bottom:1px solid #242424; }
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+
+  
+  
+  <div class="nav-overlay" id="navOverlay">
+    <div class="nav-overlay__header">
+      <button type="button" class="nav-overlay__close" id="overlayCloseBtn" aria-label="Close menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="nav-overlay__brand">
+        <img src="assets/logo.webp" alt="Stackly Corporate" width="130" height="42" style="object-fit: contain;">
+      </a>
+    </div>
+    <div class="nav-overlay__content">
+      <ul class="nav-overlay__list">
+        <li class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></li>
+        <li class="nav-overlay__item"><a href="about.html" class="nav-overlay__link">About</a></li>
+        <li class="nav-overlay__item"><a href="services.html" class="nav-overlay__link">Services</a></li>
+        <li class="nav-overlay__item"><a href="team.html" class="nav-overlay__link">Team</a></li>
+        <li class="nav-overlay__item"><a href="blog.html" class="nav-overlay__link">Blog</a></li>
+        <li class="nav-overlay__item"><a href="contact.html" class="nav-overlay__link">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-overlay__footer">
+      <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+        <a href="signin.html" class="btn-stackly-dark-pill"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+        <a href="get-started.html" class="btn-style-one py-2 px-3">
+          <span class="btn-title">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></span>
+          <span class="dot-box"><span class="dot-item"></span></span>
+        </a>
+      </div>
+      <p class="mb-0 text-white-50 small">&copy; 2026 Stackly Corporate Agency. Salem, TN.</p>
+    </div>
+  </div>
+
+  
+  <div id="stackly-preloader">
+    <div class="preloader-bg-glow"></div>
+    <div class="preloader-bg-glow-secondary"></div>
+    <div class="preloader-grid-lines"></div>
+    <div class="preloader-particles">
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+    </div>
+    <div class="preloader-content">
+      <div class="preloader-circle-wrapper">
+        <div class="circle-ring ring-outer-spin"></div>
+        <div class="circle-ring ring-middle-pulse"></div>
+        <div class="circle-ring ring-inner-orbit">
+          <span class="orbit-dot dot-1"></span>
+          <span class="orbit-dot dot-2"></span>
+          <span class="orbit-dot dot-3"></span>
+          <span class="orbit-dot dot-4"></span>
+        </div>
+        <div class="preloader-logo-box">
+          <img src="assets/top-logo.webp" alt="Stackly Logo" class="preloader-logo-img">
+          <div class="logo-shimmer"></div>
+        </div>
+      </div>
+      <div class="preloader-bar-container">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill">
+            <div class="progress-glow-tip"></div>
+          </div>
+        </div>
+        <div class="preloader-meta d-flex justify-content-between align-items-center mt-2">
+          <span class="preloader-status-text" id="preloader-status-text">INITIALIZING ENTERPRISE ENVIRONMENT...</span>
+          <span class="preloader-pct-badge"><span id="preloader-pct-num">0</span>%</span>
+        </div>
+        <div class="preloader-soundwave">
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scrollProgressBar"></div>
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-ring"></div>
+
+  
+  <div class="top-bar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+      <div class="d-flex align-items-center gap-3">
+        <span><i class="fa-solid fa-location-dot text-lime me-1"></i> MMR Complex, Chinna Thirupathi, Salem, TN 636008</span>
+        <span class="d-none d-md-inline"><i class="fa-solid fa-phone text-lime me-1"></i> +91 98765 43210</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  
+  <nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><img src="assets/logo.webp" alt="Stackly" class="brand-logo-img"></a>
+      <button class="navbar-toggler stackly-burger-btn collapsed" type="button" id="mobileMenuToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="collapse navbar-collapse" id="teamNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link active" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <a href="signin.html" class="btn-stackly-dark-pill text-nowrap"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+          <a href="get-started.html" class="btn-style-one text-nowrap py-2 px-3">
+            <span class="btn-title">Get Started</span><span class="dot-box"><span class="dot-item"></span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+  <header class="team-hero" id="teamHero">
+    <div class="team-hero__bg" id="teamHeroBg"></div>
+    <div class="team-hero__overlay"></div>
+    <div class="ambient-green-glow ambient-glow-top-right" style="opacity:.3;"></div>
+    <div class="container team-hero__content text-center py-5">
+      <div class="reveal-init reveal-fade-up">
+        <div class="eyebrow-pill"><span class="dot"></span> LEADERSHIP & SQUADS</div>
+      </div>
+      <h1 class="page-title mt-2 reveal-init reveal-fade-up delay-1" data-scroll-title>The Experts Powering <span class="accent">The Fleet</span></h1>
+      <p class="text-light-muted mx-auto mb-4 reveal-init reveal-fade-up delay-2" style="max-width:600px;line-height:1.72;font-size:1.05rem;">
+        Principal cloud engineers, AI pipeline admins, backend specialists, and operations directors steering Salem HQ across 40+ Tamil Nadu districts.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 reveal-init reveal-fade-up delay-3">
+        <a href="#teamCatalog" class="btn-lime-solid"><span>View All Squads</span><i class="fas fa-arrow-down ms-2"></i></a>
+        <a href="contact.html" class="btn-stackly-dark-pill px-4 py-2"><i class="fas fa-headset text-lime me-2"></i> Join Our Team</a>
+      </div>
+    </div>
+  </header>
+
+  
+  <section class="py-5" style="background:#0B0B0B;" id="teamCatalog">
+    <div class="container">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-users-gear"></i> Leadership Collective</div>
+        <h2 class="sec-title" data-scroll-title>Executive Squads &amp; <span class="accent">Specialists</span></h2>
+        <p class="sec-body mx-auto">Filter our team by functional domain to connect with the specialists leading your equipment deployment.</p>
+      </div>
+
+      
+      <div class="filter-chips-bar stagger-children" id="teamFilters">
+        <button type="button" class="filter-chip active" data-filter="all"><i class="fas fa-users"></i> All Squads</button>
+        <button type="button" class="filter-chip" data-filter="executive"><i class="fas fa-crown"></i> Executive</button>
+        <button type="button" class="filter-chip" data-filter="fleet"><i class="fas fa-chart-pie"></i> Cloud Engineering</button>
+        <button type="button" class="filter-chip" data-filter="pipelines"><i class="fas fa-robot"></i> AI Analytics</button>
+        <button type="button" class="filter-chip" data-filter="operations"><i class="fas fa-headset"></i> Field Operations</button>
+      </div>
+
+      
+      <div class="row g-4 stagger-children" id="teamGrid">
+        
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="executive">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/team_arjun.webp" alt="Ramesh Sundaram" loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge">Executive</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Ramesh Sundaram</h5>
+                <div class="pro-team-card__role">Founder &amp; Chief Fleet Architect</div>
+              </div>
+              <p class="pro-team-card__desc">Over 15 years in enterprise digitalization, logistics, and Tamil Nadu firm marketplace operations.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="pipelines">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/team_priya.webp" alt="Priya Venkatesh" loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge" style="color:#a78bfa;border-color:rgba(167,139,250,.35);">AI Analytics</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Priya Venkatesh</h5>
+                <div class="pro-team-card__role" style="color:#a78bfa;">Lead Data Flight Specialist</div>
+              </div>
+              <p class="pro-team-card__desc">AI mapping certified admin with 2,400+ precision data flight hours across fintech and healthcare networks.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="fleet">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/team_vikram.webp" alt="Karthik Raja" loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge" style="color:#60a5fa;border-color:rgba(96,165,250,.35);">Cloud Engineering</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Karthik Raja</h5>
+                <div class="pro-team-card__role" style="color:#60a5fa;">Hydraulics &amp; Powertrain Lead</div>
+              </div>
+              <p class="pro-team-card__desc">Master technician leading field repair dispatches, hydraulic maintenance, and implement calibrations.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="operations">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/team_sneha.webp" alt="Anitha Selvam" loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge" style="color:#fbbf24;border-color:rgba(251,191,36,.35);">Operations</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Anitha Selvam</h5>
+                <div class="pro-team-card__role" style="color:#fbbf24;">Director of Field Operations</div>
+              </div>
+              <p class="pro-team-card__desc">Managing same-week gate delivery logistics, verified machine inspections, and district dispatch SLAs.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="executive">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/team_suresh.webp" alt="Suresh Narayanan" loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge">Executive</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Suresh Narayanan</h5>
+                <div class="pro-team-card__role">VP of Marketplace Growth</div>
+              </div>
+              <p class="pro-team-card__desc">Spearheading owner network onboardings, seasonal contracts, and OEM supplier partnerships.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="fleet">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/team_vignesh.webp" alt="Vigneshwaran M." loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge" style="color:#60a5fa;border-color:rgba(96,165,250,.35);">Cloud Engineering</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Vigneshwaran M.</h5>
+                <div class="pro-team-card__role" style="color:#60a5fa;">Combine Harvester Specialist</div>
+              </div>
+              <p class="pro-team-card__desc">Senior technician overseeing crawler track tune-ups, cutter bar balancing, and harvest readiness checks.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="pipelines">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/team_deepika.webp" alt="Deepika Sridhar" loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge" style="color:#a78bfa;border-color:rgba(167,139,250,.35);">AI Analytics</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Deepika Sridhar</h5>
+                <div class="pro-team-card__role" style="color:#a78bfa;">NDVI &amp; Geospatial Analyst</div>
+              </div>
+              <p class="pro-team-card__desc">Converting global multidimensional scans into precision variable-rate growth prescriptions for clients.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6 team-card-col" data-cat="operations">
+          <div class="pro-team-card">
+            <div class="pro-team-card__media">
+              <img src="assets/client_david.webp" alt="Balaji Krishnan" loading="lazy">
+              <div class="pro-team-card__shade"></div>
+              <span class="pro-team-card__badge" style="color:#fbbf24;border-color:rgba(251,191,36,.35);">Operations</span>
+              <div class="pro-team-card__socials">
+                <a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="404.html" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <div class="pro-team-card__body">
+              <div>
+                <h5 class="pro-team-card__name">Balaji Krishnan</h5>
+                <div class="pro-team-card__role" style="color:#fbbf24;">Emergency Dispatch Coordinator</div>
+              </div>
+              <p class="pro-team-card__desc">Leading the 24/7 harvest response hotline, mobile technician dispatches, and emergency parts routing.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5 position-relative" style="background:#0d0d0d;">
+    <div class="ambient-green-glow ambient-glow-top-left" style="opacity:.15;"></div>
+    <div class="container position-relative" style="z-index:2;">
+      <div class="row g-4 stagger-children">
+        <div class="col-lg-3 col-md-6">
+          <div class="metric-box">
+            <div class="metric-num"><span class="counter-val" data-target="150" data-suffix="+">0</span></div>
+            <div class="metric-label">Certified Fleet Operators</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="metric-box">
+            <div class="metric-num"><span class="counter-val" data-target="26000" data-suffix="+">0</span></div>
+            <div class="metric-label">Successful Firm Bookings</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="metric-box">
+            <div class="metric-num">&lt; 30m</div>
+            <div class="metric-label">Emergency Response SLA</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="metric-box">
+            <div class="metric-num"><span class="counter-val" data-target="48" data-suffix=" Districts">0</span></div>
+            <div class="metric-label">Active Coverage Hubs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5" style="background:#0B0B0B;">
+    <div class="container">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-award"></i> Trust Signals</div>
+        <h2 class="sec-title" data-scroll-title>Industry Accreditations &amp; <span class="accent">Recognition</span></h2>
+        <p class="sec-body mx-auto">Enterprise trust engineered through verified machinery checklists, strict SLAs, and 100% insured fleets.</p>
+      </div>
+      <div class="row g-4 stagger-children">
+        <div class="col-lg-3 col-md-6">
+          <div class="award-card">
+            <div class="award-icon"><i class="fa-solid fa-trophy"></i></div>
+            <h5 class="fw-bold text-white mb-2">AgriTech Innovator 2025</h5>
+            <p class="text-light-muted small mb-0">Recognized by Tamil Nadu Startup Mission for transforming rural machinery access.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="award-card">
+            <div class="award-icon" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25);color:#fbbf24;"><i class="fa-solid fa-star"></i></div>
+            <h5 class="fw-bold text-white mb-2">4.95 / 5 Client Rating</h5>
+            <p class="text-light-muted small mb-0">Rated across 15,000+ verified corporate bookings and scaling operations.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="award-card">
+            <div class="award-icon" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.25);color:#60a5fa;"><i class="fa-solid fa-certificate"></i></div>
+            <h5 class="fw-bold text-white mb-2">100% Insured Fleet</h5>
+            <p class="text-light-muted small mb-0">Comprehensive coverage for equipment transit, field operations, and third-party liabilities.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="award-card">
+            <div class="award-icon" style="background:rgba(20,184,166,.1);border-color:rgba(20,184,166,.25);color:#2dd4bf;"><i class="fa-solid fa-handshake-angle"></i></div>
+            <h5 class="fw-bold text-white mb-2">OEM Partner Network</h5>
+            <p class="text-light-muted small mb-0">Trusted listings spanning Deere, Mahindra, Kubota, CLAAS, TAFE &amp; more.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="cta-band py-5" >
+    <div class="container text-center gsap-fade-up">
+      <div class="eyebrow-pill justify-content-center mb-3"><span class="dot"></span> READY TO DEPLOY?</div>
+      <h2 class="sec-title mb-3" data-scroll-title>Connect with Stackly <span class="accent">Salem Command</span></h2>
+      <p class="text-light-muted mb-4 mx-auto" style="max-width:560px;line-height:1.72;">
+        Book verified machinery, request on-field repair dispatches, or partner with us to list your equipment.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="services.html" class="btn-lime-solid"><span>Explore Services</span><i class="fa-solid fa-arrow-right ms-2"></i></a>
+        <a href="contact.html" class="btn-stackly-dark-pill px-4 py-2"><i class="fa-solid fa-headset text-lime me-2"></i> Contact HQ</a>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer class="creovio-mega-footer bg-architectural-grid">
+    <div class="ambient-green-glow ambient-glow-top-left" style="opacity: 0.7;"></div>
+
+    <div class="container position-relative" style="z-index: 2;">
+      
+      <div class="footer-newsletter-box">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <span class="badge-pill-sub mb-2"><span class="badge-dot"></span> STAY AHEAD</span>
+            <h3 class="fw-bold text-white mb-1">Subscribe to Stackly Engineering Dispatch</h3>
+            <p class="text-light-muted small mb-0">Weekly architectural deep dives, AI research notes, and enterprise cloud blueprints.</p>
+          </div>
+          <div class="col-lg-6">
+            <form class="footer-newsletter-input-group" onsubmit="event.preventDefault(); window.location.href='404.html';">
+              <input type="email" placeholder="Enter your enterprise email..." required>
+              <button type="submit" class="btn-style-one py-2 px-3">
+                <span class="btn-title">Subscribe</span>
+                <span class="dot-box"><span class="dot-item"></span></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="row g-4">
+        
+        <div class="col-lg-4 col-md-6">
+          <a href="index.html" class="d-inline-block mb-3">
+            <img src="assets/logo.webp" alt="Stackly" style="height: 38px;">
+          </a>
+          <p class="text-light-muted small mb-4 pe-lg-4" style="max-width: 290px; line-height: 1.7;">
+            Stackly is an enterprise multipurpose technology agency architecting distributed cloud backbones, autonomous AI systems, and modern digital interfaces. We empower global brands with highly scalable and resilient software infrastructures.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-2 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Quick Links</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="index.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Home</a></li>
+            <li class="mb-2"><a href="about.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> About</a></li>
+            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Services</a></li>
+            <li class="mb-2"><a href="team.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Team</a></li>
+            <li class="mb-2"><a href="blog.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Blog</a></li>
+            <li class="mb-2"><a href="contact.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Our Solutions</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-bolt text-lime me-2"></i> Hyperscale Cloud Infrastructure</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-brain text-lime me-2"></i> Neural AI & LLM Systems</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-shield-alt text-lime me-2"></i> Zero-Trust Cyber Security</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-code text-lime me-2"></i> React & Next.js Platforms</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-microchip text-lime me-2"></i> Salem Physical Innovation Lab</a></li>
+              <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-server text-lime me-2"></i> Enterprise Cloud Architecture</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Contact Info</h5>
+          <ul class="list-unstyled text-light-muted small">
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-envelope text-lime"></i>
+              <span>contact@thestackly.com</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-phone text-lime"></i>
+              <span>+91 98765 43210</span>
+            </li>
+            <li class="d-flex align-items-start gap-2 mb-3">
+              <i class="fa-solid fa-location-dot text-lime mt-1"></i>
+              <span>MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-clock text-lime"></i>
+              <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="footer-bottom-bar d-flex flex-wrap justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
+        <div class="small text-light-muted">
+          &copy; 2026 Stackly Multipurpose Corporate Agency. All rights reserved. Salem HQ, Tamil Nadu.
+        </div>
+        <div class="d-flex gap-3 mt-2 mt-md-0">
+          <a href="404.html" class="text-decoration-none text-light-muted small">Privacy Policy</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Terms of Service</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Security Center</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js?v=7.0"></script>
+  <script>
+    
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to('#teamHeroBg', { yPercent: 28, ease: 'none', scrollTrigger: { trigger: '#teamHero', start: 'top top', end: 'bottom top', scrub: true } });
+    }
+
+    
+    document.querySelectorAll('#teamFilters .filter-chip').forEach(chip => {
+      chip.addEventListener('click', function () {
+        document.querySelectorAll('#teamFilters .filter-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        document.querySelectorAll('#teamGrid .team-card-col').forEach(card => {
+          if (filter === 'all' || card.dataset.cat === filter) {
+            card.classList.remove('hidden');
+            card.classList.add('show-anim');
+            setTimeout(() => card.classList.remove('show-anim'), 400);
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

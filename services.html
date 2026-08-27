@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services & Fleet | Stackly Corporate Digital Marketplace</title>
+  <meta name="description" content="Explore Stackly's comprehensive corporate strategy, branding, data analytics, and in-house consulting services in Salem, Tamil Nadu.">
+  <link rel="icon" type="image/webp" href="assets/top-logo.webp">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="style.css?v=7.0">
+
+  <style>
+    @keyframes glowPulse{0%,100%{box-shadow:0 0 18px rgba(191,247,71,.3);}50%{box-shadow:0 0 40px rgba(191,247,71,.6);}}
+    @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+    
+    .svc-hero{position:relative;min-height:80vh;display:flex;align-items:center;overflow:hidden;}
+    .svc-hero__bg{position:absolute;inset:0;background-image:url('assets/pexels-yankrukov-7693686.webp');background-size:cover;background-position:center;transform:scale(1.08);will-change:transform;}
+    .svc-hero__overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,11,11,.9) 0%,rgba(11,11,11,.72) 60%,rgba(11,11,11,.9) 100%);}
+    .svc-hero__content{position:relative;z-index:3;}
+
+    .eyebrow-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(191,247,71,.1);border:1px solid rgba(191,247,71,.3);border-radius:100px;padding:6px 18px;font-size:.78rem;font-weight:700;letter-spacing:.12em;color:#BFF747;text-transform:uppercase;margin-bottom:22px;}
+    .eyebrow-pill .dot{width:7px;height:7px;border-radius:50%;background:#BFF747;animation:glowPulse 1.8s infinite;}
+
+    .sec-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(191,247,71,.08);border:1px solid rgba(191,247,71,.2);border-radius:100px;padding:5px 16px;font-size:.72rem;font-weight:700;letter-spacing:.12em;color:#BFF747;text-transform:uppercase;margin-bottom:14px;}
+    .page-title{font-family:'Outfit',sans-serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:20px;}
+    .page-title .accent{color:#BFF747;}
+    .sec-title{font-family:'Outfit',sans-serif;font-size:clamp(1.9rem,3.8vw,2.8rem);font-weight:800;color:#fff;margin-bottom:14px;line-height:1.12;}
+    .sec-title .accent{color:#BFF747;}
+    .sec-body{font-size:1rem;color:rgba(255,255,255,.52);line-height:1.72;max-width:620px;}
+
+    
+    .svc-card{position:relative;height:300px;border-radius:20px;overflow:hidden;border:1.5px solid #252525;background-size:cover;background-position:center;cursor:pointer;transition:transform .4s,border-color .3s,box-shadow .3s;}
+    .svc-card:hover{transform:translateY(-8px) scale(1.01);border-color:rgba(191,247,71,.5);box-shadow:0 22px 50px rgba(0,0,0,.6),0 0 28px rgba(191,247,71,.18);}
+    .svc-card__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,.18) 0%,rgba(11,11,11,.9) 75%);transition:background .4s;}
+    .svc-card:hover .svc-card__overlay{background:linear-gradient(180deg,rgba(11,11,11,.08) 0%,rgba(11,11,11,.95) 80%);}
+    .svc-card__body{position:absolute;bottom:0;left:0;right:0;padding:22px;}
+    .svc-card__cat{display:inline-block;background:rgba(191,247,71,.15);border:1px solid rgba(191,247,71,.3);color:#BFF747;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;padding:3px 12px;margin-bottom:8px;}
+    .svc-card h5{font-weight:700;color:#fff;margin-bottom:4px;}
+    .svc-card p{font-size:.82rem;color:rgba(255,255,255,.6);margin:0;line-height:1.5;}
+    .svc-card__arrow{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:10px;background:rgba(191,247,71,.1);border:1px solid rgba(191,247,71,.25);color:#BFF747;display:flex;align-items:center;justify-content:center;font-size:.9rem;opacity:0;transform:scale(.7);transition:opacity .3s,transform .3s;}
+    .svc-card:hover .svc-card__arrow{opacity:1;transform:scale(1);}
+
+    
+    .process-step{position:relative;background:#111;border:1.5px solid #252525;border-radius:20px;padding:32px 28px;height:100%;overflow:hidden;transition:border-color .35s,transform .35s;}
+    .process-step:hover{border-color:#BFF747;transform:translateY(-5px);}
+    .process-num{font-family:'Outfit',sans-serif;font-size:5rem;font-weight:900;color:rgba(255,255,255,.055);position:absolute;top:-8px;right:16px;line-height:1;pointer-events:none;}
+    .process-icon{width:52px;height:52px;border-radius:14px;background:rgba(191,247,71,.1);border:1px solid rgba(191,247,71,.25);color:#BFF747;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px;position:relative;z-index:1;}
+    .process-step h5{font-weight:700;color:#fff;margin-bottom:8px;position:relative;z-index:1;}
+    .process-step p{font-size:.85rem;color:rgba(255,255,255,.52);margin:0;position:relative;z-index:1;line-height:1.65;}
+
+    
+    .feat-card{background:#111;border:1.5px solid #252525;border-radius:18px;padding:28px 24px;height:100%;transition:border-color .35s,transform .35s,box-shadow .35s;}
+    .feat-card:hover{border-color:#BFF747;transform:translateY(-5px);box-shadow:0 18px 42px rgba(0,0,0,.5),0 0 22px rgba(191,247,71,.14);}
+    .feat-icon{width:52px;height:52px;border-radius:14px;background:rgba(191,247,71,.1);border:1px solid rgba(191,247,71,.25);color:#BFF747;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:16px;}
+
+    
+    .pkg-card{background:#111;border:1.5px solid #252525;border-radius:20px;overflow:hidden;height:100%;transition:border-color .35s,transform .35s;}
+    .pkg-card:hover{border-color:rgba(191,247,71,.4);transform:translateY(-7px);}
+    .pkg-card__img{height:210px;overflow:hidden;}
+    .pkg-card__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+    .pkg-card:hover .pkg-card__img img{transform:scale(1.06);}
+    .pkg-card__body{padding:24px 22px;}
+    .pkg-card__cat{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+    .pkg-card h5{font-weight:700;color:#fff;margin-bottom:10px;}
+    .pkg-card p{font-size:.85rem;color:rgba(255,255,255,.52);margin-bottom:18px;line-height:1.65;}
+
+    
+    .cov-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:20px;padding:30px 26px;height:100%;transition:border-color .35s,transform .35s;}
+    .cov-card:hover{border-color:rgba(191,247,71,.35);transform:translateY(-5px);}
+    .cov-icon{width:52px;height:52px;border-radius:14px;background:rgba(191,247,71,.1);border:1px solid rgba(191,247,71,.25);color:#BFF747;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px;}
+
+    .cta-band{background:linear-gradient(135deg,#0d0d0d 0%,#141814 50%,#0d0d0d 100%);border-top:1px solid #242424;border-bottom:1px solid #242424;}
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+
+  
+  
+  <div class="nav-overlay" id="navOverlay">
+    <div class="nav-overlay__header">
+      <button type="button" class="nav-overlay__close" id="overlayCloseBtn" aria-label="Close menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="nav-overlay__brand">
+        <img src="assets/logo.webp" alt="Stackly Corporate" width="130" height="42" style="object-fit: contain;">
+      </a>
+    </div>
+    <div class="nav-overlay__content">
+      <ul class="nav-overlay__list">
+        <li class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></li>
+        <li class="nav-overlay__item"><a href="about.html" class="nav-overlay__link">About</a></li>
+        <li class="nav-overlay__item"><a href="services.html" class="nav-overlay__link">Services</a></li>
+        <li class="nav-overlay__item"><a href="team.html" class="nav-overlay__link">Team</a></li>
+        <li class="nav-overlay__item"><a href="blog.html" class="nav-overlay__link">Blog</a></li>
+        <li class="nav-overlay__item"><a href="contact.html" class="nav-overlay__link">Contact</a></li>
+      </ul>
+    </div>
+    <div class="nav-overlay__footer">
+      <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+        <a href="signin.html" class="btn-stackly-dark-pill"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+        <a href="get-started.html" class="btn-style-one py-2 px-3">
+          <span class="btn-title">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></span>
+          <span class="dot-box"><span class="dot-item"></span></span>
+        </a>
+      </div>
+      <p class="mb-0 text-white-50 small">&copy; 2026 Stackly Corporate Agency. Salem, TN.</p>
+    </div>
+  </div>
+
+  
+  <div id="stackly-preloader">
+    <div class="preloader-bg-glow"></div>
+    <div class="preloader-bg-glow-secondary"></div>
+    <div class="preloader-grid-lines"></div>
+    <div class="preloader-particles">
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+      <span class="spark-dot"></span>
+    </div>
+    <div class="preloader-content">
+      <div class="preloader-circle-wrapper">
+        <div class="circle-ring ring-outer-spin"></div>
+        <div class="circle-ring ring-middle-pulse"></div>
+        <div class="circle-ring ring-inner-orbit">
+          <span class="orbit-dot dot-1"></span>
+          <span class="orbit-dot dot-2"></span>
+          <span class="orbit-dot dot-3"></span>
+          <span class="orbit-dot dot-4"></span>
+        </div>
+        <div class="preloader-logo-box">
+          <img src="assets/top-logo.webp" alt="Stackly Logo" class="preloader-logo-img">
+          <div class="logo-shimmer"></div>
+        </div>
+      </div>
+      <div class="preloader-bar-container">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill">
+            <div class="progress-glow-tip"></div>
+          </div>
+        </div>
+        <div class="preloader-meta d-flex justify-content-between align-items-center mt-2">
+          <span class="preloader-status-text" id="preloader-status-text">INITIALIZING ENTERPRISE ENVIRONMENT...</span>
+          <span class="preloader-pct-badge"><span id="preloader-pct-num">0</span>%</span>
+        </div>
+        <div class="preloader-soundwave">
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+          <span class="soundwave-bar"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scrollProgressBar"></div>
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-ring"></div>
+
+  
+  <div class="top-bar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+      <div class="d-flex align-items-center gap-3">
+        <span><i class="fa-solid fa-location-dot text-lime me-1"></i> MMR Complex, Chinna Thirupathi, Salem, TN 636008</span>
+        <span class="d-none d-md-inline"><i class="fa-solid fa-phone text-lime me-1"></i> +91 98765 43210</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" class="footer-social-icon-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  
+  <nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><img src="assets/logo.webp" alt="Stackly" class="brand-logo-img"></a>
+      <button class="navbar-toggler stackly-burger-btn collapsed" type="button" id="mobileMenuToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="collapse navbar-collapse" id="svcNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <a href="signin.html" class="btn-stackly-dark-pill text-nowrap"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
+          <a href="get-started.html" class="btn-style-one text-nowrap py-2 px-3">
+            <span class="btn-title">Get Started</span><span class="dot-box"><span class="dot-item"></span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+  <header class="svc-hero" id="svcHero">
+    <div class="svc-hero__bg" id="svcHeroBg"></div>
+    <div class="svc-hero__overlay"></div>
+    <div class="ambient-green-glow ambient-glow-top-right" style="opacity:.3;"></div>
+    <div class="container svc-hero__content text-center py-5">
+      <div class="reveal-init reveal-fade-up">
+        <div class="eyebrow-pill"><span class="dot"></span> SERVICES</div>
+      </div>
+      <h1 class="page-title mt-2 reveal-init reveal-fade-up delay-1" data-scroll-title>Equipment Services &amp; <span class="accent">Field Solutions</span></h1>
+      <p class="text-light-muted mx-auto mb-4 reveal-init reveal-fade-up delay-2" style="max-width:600px;line-height:1.72;font-size:1.05rem;">On-demand rentals, precision spraying, tillage, irrigation, and fleet inspection — dispatched from Salem across Tamil Nadu.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 reveal-init reveal-fade-up delay-3">
+        <a href="contact.html" class="btn-lime-solid"><span>Book a Service</span><i class="fas fa-arrow-right ms-2"></i></a>
+        <a href="about.html" class="btn-stackly-dark-pill px-4 py-2"><i class="fas fa-info-circle text-lime me-2"></i> About Us</a>
+      </div>
+    </div>
+  </header>
+
+  
+  <section class="py-5" style="background:#0B0B0B;">
+    <div class="container">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-chart-pie"></i> What We Deploy</div>
+        <h2 class="sec-title" data-scroll-title>Core Field <span class="accent">Services</span></h2>
+        <p class="sec-body mx-auto">Eight high-demand service lines clients book most often through the Stackly marketplace.</p>
+      </div>
+      
+      <div class="row g-4 stagger-children">
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-yankrukov-7698802.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">Rental</span><h5>Cloud Architecture</h5><p>45–110 HP 4WD frameworks with implements for tillage and haulage.</p></div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-yankrukov-7793098.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">Harvest</span><h5>Combine Harvesting</h5><p>Tracked crawlers for paddy, maize, and pulse harvest windows.</p></div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-yankrukov-7793118.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">FinTech</span><h5>Data Analytics</h5><p>AI precision analytics covering nodes with calibrated metrics streams.</p></div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-yankrukov-7793726.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">Tillage</span><h5>Tillage</h5><p>Rotary tillers and deep tillage kits for seedbed preparation.</p></div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-kampus-8204363.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">Irrigation</span><h5>Solar Irrigation</h5><p>Solar pump deployments for off-grid watering and micro-irrigation.</p></div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-tima-miroshnichenko-5439479.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">Seasonal</span><h5>Design / Audits</h5><p>Quarterly strategy and audits matched to fiscal calendars.</p></div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-pavel-danilyuk-7654128.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">Precision</span><h5>Precision Spray Ops</h5><p>Mapped spray missions with pilot support and chemical logs.</p></div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <a href="contact.html" class="text-decoration-none d-block h-100">
+            <div class="svc-card" style="background-image:url('assets/pexels-tima-miroshnichenko-5439476.webp');">
+              <div class="svc-card__overlay"></div><div class="svc-card__arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="svc-card__body"><span class="svc-card__cat">Inspection</span><h5>Fleet Inspection</h5><p>Pre-hire checks, hydraulics diagnostics, and readiness reports.</p></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5 position-relative" style="background:#0d0d0d;">
+    <div class="ambient-green-glow ambient-glow-top-left" style="opacity:.15;"></div>
+    <div class="container position-relative" style="z-index:2;">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-route"></i> How It Works</div>
+        <h2 class="sec-title" data-scroll-title>Four Steps to Field <span class="accent">Deployment</span></h2>
+        <p class="sec-body mx-auto">From request to on-plot support — built for busy harvest windows.</p>
+      </div>
+      <div class="row g-4 stagger-children">
+        <div class="col-lg-3 col-md-6">
+          <div class="process-step">
+            <div class="process-num">01</div>
+            <div class="process-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+            <h5>Request</h5>
+            <p>Tell us the firm, industry, dates, and project type you need.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="process-step" style="border-color:rgba(124,58,237,.25);">
+            <div class="process-num">02</div>
+            <div class="process-icon" style="background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.3);color:#a78bfa;"><i class="fa-solid fa-people-arrows"></i></div>
+            <h5>Match</h5>
+            <p>We pair you with a verified owner, operator, and insured unit.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="process-step" style="border-color:rgba(245,158,11,.2);">
+            <div class="process-num">03</div>
+            <div class="process-icon" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25);color:#fbbf24;"><i class="fa-solid fa-truck-fast"></i></div>
+            <h5>Deliver</h5>
+            <p>Framework is delivered to your boardroom, tested and inspected.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="process-step" style="border-color:rgba(20,184,166,.2);">
+            <div class="process-num">04</div>
+            <div class="process-icon" style="background:rgba(20,184,166,.1);border-color:rgba(20,184,166,.25);color:#2dd4bf;"><i class="fa-solid fa-headset"></i></div>
+            <h5>Support</h5>
+            <p>On-call technicians and ops stay with you through the job.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5" style="background:#0B0B0B;">
+    <div class="container">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-plus-circle"></i> Add-On Support</div>
+        <h2 class="sec-title" data-scroll-title>Extra Field <span class="accent">Services</span></h2>
+        <p class="sec-body mx-auto">Beyond the machine — people, repairs, leases, and coverage that keep operations moving.</p>
+      </div>
+      <div class="row g-4 stagger-children">
+        <div class="col-lg-3 col-md-6">
+          <div class="feat-card">
+            <div class="feat-icon"><i class="fa-solid fa-user-gear"></i></div>
+            <h5 class="fw-bold text-white mb-2">Operator Hiring</h5>
+            <p class="text-light-muted small mb-0">Certified framework and harvester operators available with every rental.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.25);color:#f87171;"><i class="fa-solid fa-wrench"></i></div>
+            <h5 class="fw-bold text-white mb-2">On-Field Repair</h5>
+            <p class="text-light-muted small mb-0">Mobile hydraulics and engine teams dispatched to your plot.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.25);color:#a78bfa;"><i class="fa-solid fa-calendar-days"></i></div>
+            <h5 class="fw-bold text-white mb-2">Seasonal Lease</h5>
+            <p class="text-light-muted small mb-0">Multi-week or fiscal-season contracts with predictable pricing.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.25);color:#60a5fa;"><i class="fa-solid fa-shield-heart"></i></div>
+            <h5 class="fw-bold text-white mb-2">Insurance Assist</h5>
+            <p class="text-light-muted small mb-0">Help filing claims and arranging coverage for transit and field use.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5 position-relative" style="background:#0d0d0d;">
+    <div class="ambient-green-glow ambient-glow-top-right" style="opacity:.12;"></div>
+    <div class="container position-relative" style="z-index:2;">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow"><i class="fa-solid fa-box-open"></i> Packages</div>
+        <h2 class="sec-title" data-scroll-title>Bundled Service <span class="accent">Packages</span></h2>
+        <p class="sec-body mx-auto">Curated bundles for Q4 scale, audit season, and full-stack prep.</p>
+      </div>
+      <div class="row g-4 stagger-children">
+        <div class="col-lg-4">
+          <div class="pkg-card">
+            <div class="pkg-card__img"><img src="assets/pexels-tima-miroshnichenko-7567558.webp" alt="Harvest Ready"></div>
+            <div class="pkg-card__body">
+              <div class="pkg-card__cat" style="color:#BFF747;">HARVEST</div>
+              <h5>Harvest Ready Bundle</h5>
+              <p>Combine + operator + grain cart support for peak paddy and maize windows.</p>
+              <a href="contact.html" class="btn-lime-solid d-inline-flex"><span>Book Package</span><i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="pkg-card">
+            <div class="pkg-card__img"><img src="assets/pexels-mikael-blomkvist-6476259.webp" alt="Spray Pack"></div>
+            <div class="pkg-card__body">
+              <div class="pkg-card__cat" style="color:#a78bfa;">SPRAY OPS</div>
+              <h5>Precision Spray Pack</h5>
+              <p>Data pipeline + admin + mapped analytics plan for engagement and conversion runs.</p>
+              <a href="contact.html" class="btn-lime-solid d-inline-flex"><span>Book Package</span><i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="pkg-card">
+            <div class="pkg-card__img"><img src="assets/pexels-mart-production-7550362.webp" alt="Season Lease"></div>
+            <div class="pkg-card__body">
+              <div class="pkg-card__cat" style="color:#fbbf24;">SEASON PREP</div>
+              <h5>Stack Prep Season Audit</h5>
+              <p>Strategy, design, and roadmap audit with optional cloud sync for multi-week prep.</p>
+              <a href="contact.html" class="btn-stackly-dark-pill px-4 py-2 d-inline-flex"><i class="fas fa-envelope text-lime me-2"></i>Request Quote</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="py-5 position-relative" style="background:#080808;">
+    <div class="container position-relative" style="z-index:2;">
+      <div class="text-center mb-5 gsap-fade-up">
+        <div class="sec-eyebrow" style="color:#86efac;border-color:rgba(134,239,172,.25);background:rgba(134,239,172,.08);"><i class="fa-regular fa-clock"></i> Coverage</div>
+        <h2 class="sec-title" data-scroll-title>Hours &amp; Tamil Nadu <span class="accent">Districts</span></h2>
+        <p class="sec-body mx-auto" style="color:rgba(255,255,255,.52);">Dispatch desks and field crews covering Salem HQ and partner districts statewide.</p>
+      </div>
+      <div class="row g-4 stagger-children">
+        <div class="col-lg-4">
+          <div class="cov-card">
+            <div class="cov-icon"><i class="fa-solid fa-headset"></i></div>
+            <h5 class="fw-bold text-white mb-2">Dispatch Desk</h5>
+            <p class="small mb-1" style="color:rgba(255,255,255,.65);">Mon–Sat · 7:00 AM – 9:00 PM IST</p>
+            <p class="small mb-0" style="color:rgba(255,255,255,.4);">Emergency field line available 24/7 for active rentals.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="cov-card">
+            <div class="cov-icon" style="background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.3);color:#a78bfa;"><i class="fa-solid fa-map-location-dot"></i></div>
+            <h5 class="fw-bold text-white mb-2">Primary Hub</h5>
+            <p class="small mb-1" style="color:rgba(255,255,255,.65);">Salem · Namakkal · Erode · Dharmapuri</p>
+            <p class="small mb-0" style="color:rgba(255,255,255,.4);">Same-day or next-day delivery inside the hub ring.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="cov-card">
+            <div class="cov-icon" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25);color:#fbbf24;"><i class="fa-solid fa-truck"></i></div>
+            <h5 class="fw-bold text-white mb-2">Extended TN</h5>
+            <p class="small mb-1" style="color:rgba(255,255,255,.65);">Coimbatore · Trichy · Madurai · Thanjavur · more</p>
+            <p class="small mb-0" style="color:rgba(255,255,255,.4);">Scheduled multi-day dispatches for harvest &amp; spray seasons.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="cta-band py-5" >
+    <div class="container text-center gsap-fade-up">
+      <div class="eyebrow-pill justify-content-center mb-3"><span class="dot"></span> NEXT STEP</div>
+      <h2 class="sec-title mb-3" data-scroll-title>Need a Custom Service <span class="accent">Plan?</span></h2>
+      <p class="text-light-muted mb-4 mx-auto" style="max-width:520px;line-height:1.72;">Talk to Stackly Salem or jump straight into the marketplace to reserve machines.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="contact.html" class="btn-lime-solid"><span>Contact Dispatch</span><i class="fas fa-envelope ms-2"></i></a>
+        <a href="about.html" class="btn-stackly-dark-pill px-4 py-2"><i class="fas fa-store text-lime me-2"></i> About Stackly</a>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer class="creovio-mega-footer bg-architectural-grid">
+    <div class="ambient-green-glow ambient-glow-top-left" style="opacity: 0.7;"></div>
+
+    <div class="container position-relative" style="z-index: 2;">
+      
+      <div class="footer-newsletter-box">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <span class="badge-pill-sub mb-2"><span class="badge-dot"></span> STAY AHEAD</span>
+            <h3 class="fw-bold text-white mb-1">Subscribe to Stackly Engineering Dispatch</h3>
+            <p class="text-light-muted small mb-0">Weekly architectural deep dives, AI research notes, and enterprise cloud blueprints.</p>
+          </div>
+          <div class="col-lg-6">
+            <form class="footer-newsletter-input-group" onsubmit="event.preventDefault(); window.location.href='404.html';">
+              <input type="email" placeholder="Enter your enterprise email..." required>
+              <button type="submit" class="btn-style-one py-2 px-3">
+                <span class="btn-title">Subscribe</span>
+                <span class="dot-box"><span class="dot-item"></span></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="row g-4">
+        
+        <div class="col-lg-4 col-md-6">
+          <a href="index.html" class="d-inline-block mb-3">
+            <img src="assets/logo.webp" alt="Stackly" style="height: 38px;">
+          </a>
+          <p class="text-light-muted small mb-4 pe-lg-4" style="max-width: 290px; line-height: 1.7;">
+            Stackly is an enterprise multipurpose technology agency architecting distributed cloud backbones, autonomous AI systems, and modern digital interfaces. We empower global brands with highly scalable and resilient software infrastructures.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="404.html" class="footer-social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-2 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Quick Links</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="index.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Home</a></li>
+            <li class="mb-2"><a href="about.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> About</a></li>
+            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Services</a></li>
+            <li class="mb-2"><a href="team.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Team</a></li>
+            <li class="mb-2"><a href="blog.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Blog</a></li>
+            <li class="mb-2"><a href="contact.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Our Solutions</h5>
+          <ul class="footer-links-list list-unstyled">
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-bolt text-lime me-2"></i> Hyperscale Cloud Infrastructure</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-brain text-lime me-2"></i> Neural AI & LLM Systems</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-shield-alt text-lime me-2"></i> Zero-Trust Cyber Security</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-code text-lime me-2"></i> React & Next.js Platforms</a></li>
+            <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-microchip text-lime me-2"></i> Salem Physical Innovation Lab</a></li>
+              <li class="mb-2"><a href="404.html" class="text-light-muted text-decoration-none small"><i class="fas fa-server text-lime me-2"></i> Enterprise Cloud Architecture</a></li>
+          </ul>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-nav-title mb-3 text-white fw-bold">Contact Info</h5>
+          <ul class="list-unstyled text-light-muted small">
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-envelope text-lime"></i>
+              <span>contact@thestackly.com</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-phone text-lime"></i>
+              <span>+91 98765 43210</span>
+            </li>
+            <li class="d-flex align-items-start gap-2 mb-3">
+              <i class="fa-solid fa-location-dot text-lime mt-1"></i>
+              <span>MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-solid fa-clock text-lime"></i>
+              <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="footer-bottom-bar d-flex flex-wrap justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
+        <div class="small text-light-muted">
+          &copy; 2026 Stackly Multipurpose Corporate Agency. All rights reserved. Salem HQ, Tamil Nadu.
+        </div>
+        <div class="d-flex gap-3 mt-2 mt-md-0">
+          <a href="404.html" class="text-decoration-none text-light-muted small">Privacy Policy</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Terms of Service</a>
+          <a href="404.html" class="text-decoration-none text-light-muted small">Security Center</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js?v=7.0"></script>
+  <script>
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to('#svcHeroBg', { yPercent: 28, ease: 'none', scrollTrigger: { trigger: '#svcHero', start: 'top top', end: 'bottom top', scrub: true } });
+    }
+  </script>
+</body>
+</html>
