@@ -1781,7 +1781,7 @@ class FuzzyText {
     this.canvas.className = 'fuzzy-text-canvas';
     this.canvas.style.display = 'block';
     this.canvas.style.margin = '0 auto';
-    this.canvas.style.cursor = this.enableHover ? 'pointer' : 'default';
+    this.canvas.style.cursor = 'default';
 
     this.ctx = this.canvas.getContext('2d');
     this.container.appendChild(this.canvas);

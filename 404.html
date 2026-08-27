@@ -45,7 +45,7 @@
       padding: 0;
     }
 
-    /* Ambient Background Glows */
+    
     .glow-blob-primary {
       position: absolute;
       top: 50%;
@@ -77,7 +77,7 @@
       100% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
     }
 
-    /* Background Interactive Grid Canvas */
+    
     #bgAnimationCanvas {
       position: absolute;
       top: 0;
@@ -88,7 +88,7 @@
       pointer-events: none;
     }
 
-    /* Stage Container (Compact height to guarantee zero scrollbar) */
+    
     .error-stage-wrapper {
       position: relative;
       z-index: 5;
@@ -101,7 +101,7 @@
       margin: auto 0;
     }
 
-    /* Holographic Radar Pulse Rings */
+    
     .radar-rings-box {
       position: absolute;
       top: 50%;
@@ -132,7 +132,7 @@
       100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; border-color: rgba(110, 193, 228, 0.05); }
     }
 
-    /* Status Badge (Positioned down close to 404 text) */
+    
     .badge-cyber-status {
       display: inline-flex;
       align-items: center;
@@ -166,7 +166,13 @@
       100% { opacity: 1; transform: scale(1.2); }
     }
 
-    /* Fuzzy Text Containers (Tight vertical spacing) */
+    
+    #fuzzyTextContainer,
+    #fuzzyTextNotFoundContainer,
+    .fuzzy-text-canvas {
+      cursor: default !important;
+    }
+
     #fuzzyTextContainer {
       position: relative;
       z-index: 2;
@@ -183,7 +189,7 @@
       line-height: 1;
     }
 
-    /* Short Concise Description */
+    
     .error-desc {
       color: #94a3b8;
       font-size: clamp(0.9rem, 1.5vw, 1.05rem);
@@ -192,7 +198,7 @@
       margin: 0 auto 1.6rem auto;
     }
 
-    /* Action Buttons Container (ONLY 2 BUTTONS) */
+    
     .action-buttons-group {
       display: flex;
       flex-wrap: wrap;
@@ -202,7 +208,7 @@
       z-index: 10;
     }
 
-    /* Button 1: Back to Home (Primary Lime Pill) */
+    
     .btn-404-home {
       display: inline-flex;
       align-items: center;
@@ -253,7 +259,7 @@
       transform: scale(1.15) rotate(-8deg);
     }
 
-    /* Button 2: Go Back (Secondary Translucent Cyber Button) */
+    
     .btn-404-back {
       display: inline-flex;
       align-items: center;
@@ -290,7 +296,7 @@
       transform: translateX(-4px);
     }
 
-    /* Top Brand Watermark */
+    
     .brand-watermark {
       position: absolute;
       top: 1.5rem;
