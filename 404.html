@@ -7,60 +7,315 @@
   <title>404 - Page Not Found | Stackly Multipurpose Corporate Agency</title>
   <link rel="icon" type="image/webp" href="assets/top-logo.webp">
 
-  
+  <!-- GSAP Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-  
+  <!-- Google Fonts: Caveat, Orbitron, Space Grotesk, Outfit & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Orbitron:wght@800;900&family=Outfit:wght@800;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
 
-  
+  <!-- Framework CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
 
-  
+  <!-- Theme Main Stylesheet -->
   <link rel="stylesheet" href="style.css?v=7.0">
+
+  <!-- 404 Standalone Ultra-Compact Non-Scrollable Styles -->
+  <style>
+    html, body {
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden !important;
+    }
+
+    body.page-404-standalone {
+      background-color: #08090a;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Ambient Background Glows */
+    .glow-blob-primary {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(191, 247, 71, 0.14) 0%, rgba(110, 193, 228, 0.07) 45%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(40px);
+      animation: pulseGlow 8s infinite alternate ease-in-out;
+    }
+
+    .glow-blob-cyan {
+      position: absolute;
+      top: 20%;
+      right: 15%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(110, 193, 228, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(45px);
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+      100% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+    }
+
+    /* Background Interactive Grid Canvas */
+    #bgAnimationCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Stage Container (Compact height to guarantee zero scrollbar) */
+    .error-stage-wrapper {
+      position: relative;
+      z-index: 5;
+      max-width: 760px;
+      width: 92%;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+      margin: auto 0;
+    }
+
+    /* Holographic Radar Pulse Rings */
+    .radar-rings-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      height: 420px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .radar-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(191, 247, 71, 0.12);
+      animation: radarExpand 4s infinite linear;
+    }
+
+    .radar-ring:nth-child(1) { width: 170px; height: 170px; animation-delay: 0s; }
+    .radar-ring:nth-child(2) { width: 280px; height: 280px; animation-delay: 1.33s; }
+    .radar-ring:nth-child(3) { width: 390px; height: 390px; animation-delay: 2.66s; }
+
+    @keyframes radarExpand {
+      0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.8; border-color: rgba(191, 247, 71, 0.35); }
+      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; border-color: rgba(110, 193, 228, 0.05); }
+    }
+
+    /* Status Badge (Positioned down close to 404 text) */
+    .badge-cyber-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0.4rem 1.15rem;
+      border-radius: 100px;
+      background: rgba(191, 247, 71, 0.08);
+      border: 1px solid rgba(191, 247, 71, 0.25);
+      color: #BFF747;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      margin-bottom: 0.25rem;
+      box-shadow: 0 0 16px rgba(191, 247, 71, 0.15);
+      backdrop-filter: blur(8px);
+    }
+
+    .badge-dot-glow {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #BFF747;
+      box-shadow: 0 0 8px #BFF747, 0 0 14px #BFF747;
+      animation: dotBlink 1.5s infinite alternate;
+    }
+
+    @keyframes dotBlink {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Fuzzy Text Containers (Tight vertical spacing) */
+    #fuzzyTextContainer {
+      position: relative;
+      z-index: 2;
+      margin: 0 auto -6px auto;
+      user-select: none;
+      line-height: 1;
+    }
+
+    #fuzzyTextNotFoundContainer {
+      position: relative;
+      z-index: 2;
+      margin: -6px auto 0.85rem auto;
+      user-select: none;
+      line-height: 1;
+    }
+
+    /* Short Concise Description */
+    .error-desc {
+      color: #94a3b8;
+      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 1.6rem auto;
+    }
+
+    /* Action Buttons Container (ONLY 2 BUTTONS) */
+    .action-buttons-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Button 1: Back to Home (Primary Lime Pill) */
+    .btn-404-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0.8rem 1.9rem;
+      border-radius: 100px;
+      background: linear-gradient(135deg, #BFF747 0%, #a2e820 100%);
+      color: #0b0b0b !important;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      border: none;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(191, 247, 71, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-404-home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-404-home:hover::before {
+      left: 100%;
+    }
+
+    .btn-404-home:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 30px rgba(191, 247, 71, 0.6), 0 8px 20px rgba(0, 0, 0, 0.4);
+      color: #000000 !important;
+    }
+
+    .btn-404-home i {
+      transition: transform 0.3s ease;
+    }
+
+    .btn-404-home:hover i {
+      transform: scale(1.15) rotate(-8deg);
+    }
+
+    /* Button 2: Go Back (Secondary Translucent Cyber Button) */
+    .btn-404-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0.8rem 1.9rem;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #ffffff !important;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-404-back:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(191, 247, 71, 0.5);
+      color: #BFF747 !important;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 20px rgba(191, 247, 71, 0.2), 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-404-back i {
+      transition: transform 0.3s ease;
+    }
+
+    .btn-404-back:hover i {
+      transform: translateX(-4px);
+    }
+
+    /* Top Brand Watermark */
+    .brand-watermark {
+      position: absolute;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+
+    .brand-watermark:hover {
+      opacity: 1;
+    }
+
+    .brand-watermark img {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+  </style>
 </head>
 
-<body class="bg-dark text-white d-flex flex-column min-vh-100 position-relative overflow-x-hidden">
+<body class="page-404-standalone">
 
-  
-  
-  <div class="nav-overlay" id="navOverlay">
-    <div class="nav-overlay__header">
-      <button type="button" class="nav-overlay__close" id="overlayCloseBtn" aria-label="Close menu">
-        <span></span><span></span><span></span>
-      </button>
-      <a href="index.html" class="nav-overlay__brand">
-        <img src="assets/logo.webp" alt="Stackly Corporate" width="130" height="42" style="object-fit: contain;">
-      </a>
-    </div>
-    <div class="nav-overlay__content">
-      <ul class="nav-overlay__list">
-        <li class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></li>
-        <li class="nav-overlay__item"><a href="about.html" class="nav-overlay__link">About</a></li>
-        <li class="nav-overlay__item"><a href="services.html" class="nav-overlay__link">Services</a></li>
-        <li class="nav-overlay__item"><a href="team.html" class="nav-overlay__link">Team</a></li>
-        <li class="nav-overlay__item"><a href="blog.html" class="nav-overlay__link">Blog</a></li>
-        <li class="nav-overlay__item"><a href="contact.html" class="nav-overlay__link">Contact</a></li>
-      </ul>
-    </div>
-    <div class="nav-overlay__footer">
-      <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
-        <a href="signin.html" class="btn-stackly-dark-pill"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
-        <a href="get-started.html" class="btn-style-one py-2 px-3">
-          <span class="btn-title">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></span>
-          <span class="dot-box"><span class="dot-item"></span></span>
-        </a>
-      </div>
-      <p class="mb-0 text-white-50 small">&copy; 2026 Stackly Corporate Agency. Salem, TN.</p>
-    </div>
-  </div>
-
-  
+  <!-- Preloader -->
   <div id="stackly-preloader">
     <div class="preloader-bg-glow"></div>
     <div class="preloader-bg-glow-secondary"></div>
@@ -97,206 +352,71 @@
           <span class="preloader-status-text" id="preloader-status-text">INITIALIZING ENTERPRISE ENVIRONMENT...</span>
           <span class="preloader-pct-badge"><span id="preloader-pct-num">0</span>%</span>
         </div>
-        <div class="preloader-soundwave">
-          <span class="soundwave-bar"></span>
-          <span class="soundwave-bar"></span>
-          <span class="soundwave-bar"></span>
-          <span class="soundwave-bar"></span>
-          <span class="soundwave-bar"></span>
-          <span class="soundwave-bar"></span>
-          <span class="soundwave-bar"></span>
-        </div>
       </div>
     </div>
   </div>
 
-  <div id="scrollProgressBar"></div>
-  
+  <!-- Custom Cursor -->
   <div class="custom-cursor-dot"></div>
   <div class="custom-cursor-ring"></div>
 
-  
-  <div class="top-bar">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
-      <div class="d-flex align-items-center gap-3">
-        <span><i class="fa-solid fa-location-dot text-lime me-1"></i> MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu 636008</span>
-        <span class="d-none d-md-inline"><i class="fa-solid fa-phone text-lime me-1"></i> +91 98765 43210</span>
-      </div>
-      <div class="d-flex align-items-center gap-3">
-        <div class="d-flex gap-2">
-          <a href="404.html" class="footer-social-icon-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="404.html" class="footer-social-icon-btn" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="404.html" class="footer-social-icon-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Interactive Background Canvas -->
+  <canvas id="bgAnimationCanvas"></canvas>
 
-  
-  <nav class="navbar navbar-expand-lg main-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img src="assets/logo.webp" alt="Stackly" class="brand-logo-img">
+  <!-- Ambient Neon Background Blobs -->
+  <div class="glow-blob-primary"></div>
+  <div class="glow-blob-cyan"></div>
+
+  <!-- Subtle Top Brand Logo -->
+  <a href="index.html" class="brand-watermark" aria-label="Stackly Home">
+    <img src="assets/logo.webp" alt="Stackly Corporate">
+  </a>
+
+  <!-- Main 404 Stage Center -->
+  <main class="error-stage-wrapper" id="errorStage">
+    
+    <!-- Holographic Radar Concentric Rings -->
+    <div class="radar-rings-box">
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+    </div>
+
+    <!-- Status Badge (Moved down close to 404) -->
+    <div class="badge-cyber-status gsap-fade-up">
+      <span class="badge-dot-glow"></span>
+      ERROR 404 :: ROUTE UNREACHABLE
+    </div>
+
+    <!-- FuzzyText 404 Container -->
+    <div id="fuzzyTextContainer" class="gsap-zoom-in"></div>
+
+    <!-- FuzzyText NOT FOUND Container (Close to 404) -->
+    <div id="fuzzyTextNotFoundContainer" class="gsap-zoom-in"></div>
+
+    <!-- Short Concise Description (Zero Scrollbar) -->
+    <p class="error-desc gsap-fade-up">
+      The requested page was moved, deleted, or does not exist in our system.
+    </p>
+
+    <!-- ONLY 2 BUTTONS: Back to Home & Go Back -->
+    <div class="action-buttons-group gsap-fade-up">
+      <!-- Button 1: Back to Home -->
+      <a href="index.html" class="btn-404-home">
+        <i class="fa-solid fa-house"></i>
+        <span>Back to Home</span>
       </a>
 
-      <button class="navbar-toggler stackly-burger-btn collapsed" type="button" id="mobileMenuToggle" aria-controls="stacklyNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
+      <!-- Button 2: Go Back -->
+      <button type="button" class="btn-404-back" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Go Back</span>
       </button>
-
-      <div class="collapse navbar-collapse" id="stacklyNavDropdown">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="services.html">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="team.html">Team</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="blog.html">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
-
-        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-          <a href="signin.html" class="btn-stackly-dark-pill text-nowrap"><i class="fas fa-lock me-1 text-lime"></i> Sign In</a>
-          <a href="get-started.html" class="btn-style-one text-nowrap py-2 px-3">
-            <span class="btn-title">Sign Up</span>
-            <span class="dot-box"><span class="dot-item"></span></span>
-          </a>
-        </div>
-      </div>
     </div>
-  </nav>
 
-  
-  <section class="py-5 bg-architectural-grid position-relative flex-grow-1 d-flex align-items-center" id="errorViewport">
-    
-    <canvas id="bgAnimationCanvas"></canvas>
-    
-    <div class="ambient-green-glow ambient-glow-top-left" style="opacity: 0.6;"></div>
-    
-    <div class="container position-relative text-center py-5" style="z-index: 2; max-width: 720px;">
-      <div id="errorHeroStage">
-        <span class="badge-pill-sub mb-3 gsap-fade-up"><span class="badge-dot"></span> ENDPOINT TELEMETRY ERROR</span>
-        <h1 class="error-404-glitch mb-2 gsap-zoom-in">404</h1>
-        <h2 class="display-6 fw-bold text-white mb-3 gsap-fade-up">Page Relocated or Under Architecture</h2>
-        
-        <p class="text-light-muted fs-6 mb-4 gsap-fade-up" style="line-height: 1.75;">
-          The requested corporate endpoint is currently being provisioned by our Salem engineering pods or has been relocated to another cluster region.
-        </p>
+  </main>
 
-        <div class="d-flex justify-content-center gap-3 mb-4 gsap-fade-up">
-          <a href="404.html" class="footer-social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="404.html" class="footer-social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="404.html" class="footer-social-icon-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="404.html" class="footer-social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-
-        <div class="d-flex flex-wrap justify-content-center gap-3 gsap-fade-up">
-          <a href="index.html" class="btn-lime-solid">
-            <i class="fas fa-home me-2"></i> <span>Back to Home</span>
-          </a>
-          <a href="contact.html" class="btn-style-one">
-            <span class="btn-title">Contact Command Pod</span>
-            <span class="dot-box"><span class="dot-item"></span></span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  
-  <footer class="creovio-mega-footer bg-architectural-grid mt-auto">
-    <div class="container position-relative" style="z-index: 2;">
-      <div class="row g-4">
-        
-        <div class="col-lg-4 col-md-6">
-          <a href="index.html" class="d-inline-block mb-3">
-            <img src="assets/logo.webp" alt="Stackly" style="height: 38px;">
-          </a>
-          <p class="text-light-muted small mb-4 pe-lg-3" style="max-width: 290px;">
-            Stackly is an enterprise multipurpose technology agency architecting distributed cloud backbones, autonomous AI systems, and modern digital interfaces. We empower global brands with highly scalable and resilient software infrastructures.
-          </p>
-          <div class="d-flex gap-2">
-            <a href="404.html" class="footer-social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="404.html" class="footer-social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="404.html" class="footer-social-icon-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="404.html" class="footer-social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="404.html" class="footer-social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
-
-        
-        <div class="col-lg-2 col-md-6">
-          <h5 class="footer-nav-title mb-3 text-white fw-bold">Quick Links</h5>
-          <ul class="footer-links-list list-unstyled">
-            <li class="mb-2"><a href="index.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Home</a></li>
-            <li class="mb-2"><a href="about.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> About</a></li>
-            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Services</a></li>
-            <li class="mb-2"><a href="team.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Team</a></li>
-            <li class="mb-2"><a href="blog.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Blog</a></li>
-            <li class="mb-2"><a href="contact.html" class="text-light-muted text-decoration-none small"><i class="fas fa-angle-right text-lime me-2"></i> Contact</a></li>
-          </ul>
-        </div>
-
-        
-        <div class="col-lg-3 col-md-6">
-          <h5 class="footer-nav-title mb-3 text-white fw-bold">Our Solutions</h5>
-          <ul class="footer-links-list list-unstyled">
-            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-bolt text-lime me-2"></i> Hyperscale Cloud Infrastructure</a></li>
-            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-brain text-lime me-2"></i> Neural AI & LLM Systems</a></li>
-            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-shield-alt text-lime me-2"></i> Zero-Trust Cyber Security</a></li>
-            <li class="mb-2"><a href="services.html" class="text-light-muted text-decoration-none small"><i class="fas fa-code text-lime me-2"></i> React & Next.js Platforms</a></li>
-            <li class="mb-2"><a href="about.html" class="text-light-muted text-decoration-none small"><i class="fas fa-microchip text-lime me-2"></i> Salem Physical Innovation Lab</a></li>
-          </ul>
-        </div>
-
-        
-        <div class="col-lg-3 col-md-6">
-          <h5 class="footer-nav-title mb-3 text-white fw-bold">Contact Info</h5>
-          <ul class="list-unstyled text-light-muted small">
-            <li class="d-flex align-items-center gap-2 mb-3">
-              <i class="fa-solid fa-envelope text-lime"></i>
-              <span>contact@thestackly.com</span>
-            </li>
-            <li class="d-flex align-items-center gap-2 mb-3">
-              <i class="fa-solid fa-phone text-lime"></i>
-              <span>+91 98765 43210</span>
-            </li>
-            <li class="d-flex align-items-start gap-2 mb-3">
-              <i class="fa-solid fa-location-dot text-lime mt-1"></i>
-              <span>MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
-            </li>
-            <li class="d-flex align-items-center gap-2">
-              <i class="fa-solid fa-clock text-lime"></i>
-              <span>Mon – Sat: 9:00 AM – 6:00 PM</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      
-      <div class="footer-bottom-bar d-flex flex-wrap justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
-        <div class="small text-light-muted">
-          &copy; 2026 Stackly Multipurpose Corporate Agency. All rights reserved. Salem HQ, Tamil Nadu.
-        </div>
-        <div class="d-flex gap-3 mt-2 mt-md-0">
-          <a href="404.html" class="text-decoration-none text-light-muted small">Privacy Policy</a>
-          <a href="404.html" class="text-decoration-none text-light-muted small">Terms of Service</a>
-          <a href="404.html" class="text-decoration-none text-light-muted small">Security Center</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
+  <!-- Core Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="main.js?v=7.0"></script>
 </body>

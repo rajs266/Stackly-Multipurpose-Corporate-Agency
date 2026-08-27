@@ -1740,110 +1740,382 @@ function showSuccessModal(title, msg) {
 window.showSuccessModal = showSuccessModal;
 
 
+/* ==========================================================================
+   FuzzyText Canvas Component & 404 Stage Initialization
+   ========================================================================== */
+/* ==========================================================================
+   FuzzyText Canvas Component & 404 Stage Initialization
+   ========================================================================== */
+/* ==========================================================================
+   FuzzyText Canvas Component & 404 Stage Initialization
+   ========================================================================== */
+class FuzzyText {
+  constructor(element, options = {}) {
+    if (typeof element === 'string') {
+      this.container = document.querySelector(element);
+    } else if (element instanceof HTMLElement) {
+      this.container = element;
+    } else if (element && typeof element === 'object' && element.container) {
+      this.container = element.container;
+      options = element;
+    } else if (element && typeof element === 'object') {
+      options = element;
+      this.container = options.container ? (typeof options.container === 'string' ? document.querySelector(options.container) : options.container) : null;
+    }
+
+    if (!this.container) return;
+
+    this.text = options.children || options.text || '404';
+    this.baseIntensity = options.baseIntensity !== undefined ? options.baseIntensity : 0.22;
+    this.hoverIntensity = options.hoverIntensity !== undefined ? options.hoverIntensity : 0.75;
+    this.enableHover = options.enableHover !== undefined ? options.enableHover : true;
+    this.color = options.color || '#BFF747';
+    this.fontWeight = options.fontWeight || '900';
+    this.fontFamily = options.fontFamily || "'Outfit', 'Plus Jakarta Sans', sans-serif";
+
+    this.currentIntensity = this.baseIntensity;
+    this.targetIntensity = this.baseIntensity;
+    this.animId = null;
+
+    this.init();
+  }
+
+  init() {
+    this.container.innerHTML = '';
+    this.container.style.position = 'relative';
+    this.container.style.display = 'block';
+
+    this.canvas = document.createElement('canvas');
+    this.canvas.className = 'fuzzy-text-canvas';
+    this.canvas.style.display = 'block';
+    this.canvas.style.margin = '0 auto';
+    this.canvas.style.cursor = this.enableHover ? 'pointer' : 'default';
+
+    this.ctx = this.canvas.getContext('2d');
+    this.container.appendChild(this.canvas);
+
+    this.offscreenCanvas = document.createElement('canvas');
+    this.offscreenCtx = this.offscreenCanvas.getContext('2d');
+
+    if (this.enableHover) {
+      const handleEnter = () => {
+        this.targetIntensity = this.hoverIntensity;
+      };
+      const handleLeave = () => {
+        this.targetIntensity = this.baseIntensity;
+      };
+
+      this.container.addEventListener('mouseenter', handleEnter);
+      this.container.addEventListener('mouseleave', handleLeave);
+      this.container.addEventListener('touchstart', handleEnter, { passive: true });
+      this.container.addEventListener('touchend', handleLeave, { passive: true });
+    }
+
+    this.handleResize = () => this.resize();
+    window.addEventListener('resize', this.handleResize);
+
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        this.resize();
+        this.startLoop();
+      });
+    } else {
+      this.resize();
+      this.startLoop();
+    }
+  }
+
+  resize() {
+    const windowWidth = window.innerWidth;
+    
+    let computedFontSize = 130;
+    if (this.text === '404' || this.text.length <= 4) {
+      if (windowWidth < 480) computedFontSize = 75;
+      else if (windowWidth < 768) computedFontSize = 100;
+      else if (windowWidth < 1200) computedFontSize = 125;
+      else computedFontSize = 145;
+    } else {
+      // Handwritten "not found" font sizing
+      if (windowWidth < 480) computedFontSize = 42;
+      else if (windowWidth < 768) computedFontSize = 55;
+      else if (windowWidth < 1200) computedFontSize = 68;
+      else computedFontSize = 78;
+    }
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const fontStr = `${this.fontWeight} ${computedFontSize}px ${this.fontFamily}`;
+
+    this.offscreenCtx.font = fontStr;
+    const metrics = this.offscreenCtx.measureText(this.text);
+    const textWidth = Math.ceil(metrics.width);
+    const textHeight = Math.ceil(computedFontSize * 1.15);
+
+    const paddingX = Math.ceil(computedFontSize * 0.25);
+    const paddingY = Math.ceil(computedFontSize * 0.08);
+
+    const totalWidth = textWidth + paddingX * 2;
+    const totalHeight = textHeight + paddingY * 2;
+
+    this.width = totalWidth;
+    this.height = totalHeight;
+
+    this.canvas.width = totalWidth * dpr;
+    this.canvas.height = totalHeight * dpr;
+    this.canvas.style.width = `${totalWidth}px`;
+    this.canvas.style.height = `${totalHeight}px`;
+    this.ctx.scale(dpr, dpr);
+
+    this.offscreenCanvas.width = totalWidth;
+    this.offscreenCanvas.height = totalHeight;
+
+    // Render original theme lime color gradient to offscreen canvas
+    this.offscreenCtx.clearRect(0, 0, totalWidth, totalHeight);
+    this.offscreenCtx.font = fontStr;
+    this.offscreenCtx.textAlign = 'center';
+    this.offscreenCtx.textBaseline = 'middle';
+
+    const cx = totalWidth / 2;
+    const cy = totalHeight / 2;
+
+    const grad = this.offscreenCtx.createLinearGradient(0, cy - computedFontSize / 2, 0, cy + computedFontSize / 2);
+    grad.addColorStop(0, '#FFFFFF');
+    grad.addColorStop(0.35, '#BFF747');
+    grad.addColorStop(0.75, '#A5E625');
+    grad.addColorStop(1, '#6EC1E4');
+
+    this.offscreenCtx.fillStyle = grad;
+    this.offscreenCtx.shadowColor = 'rgba(191, 247, 71, 0.9)';
+    this.offscreenCtx.shadowBlur = 20;
+    this.offscreenCtx.fillText(this.text, cx, cy);
+  }
+
+  startLoop() {
+    if (this.animId) cancelAnimationFrame(this.animId);
+    const loop = () => {
+      this.currentIntensity += (this.targetIntensity - this.currentIntensity) * 0.12;
+      this.render();
+      this.animId = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+
+  render() {
+    if (!this.width || !this.height) return;
+
+    this.ctx.clearRect(0, 0, this.width, this.height);
+
+    const intensity = this.currentIntensity;
+    
+    // 1. Ambient neon glow underlayer
+    this.ctx.save();
+    this.ctx.globalAlpha = 0.35 + intensity * 0.45;
+    this.ctx.filter = `blur(${3 + intensity * 6}px)`;
+    this.ctx.drawImage(this.offscreenCanvas, 0, 0);
+    this.ctx.restore();
+
+    // 2. Sliced fuzzy jitter rendering
+    const sliceHeight = 2;
+    const totalSlices = Math.ceil(this.height / sliceHeight);
+
+    for (let i = 0; i < totalSlices; i++) {
+      const sy = i * sliceHeight;
+      const sh = Math.min(sliceHeight, this.height - sy);
+
+      let dx = 0;
+      let dy = 0;
+
+      if (Math.random() < 0.55 + intensity * 0.45) {
+        const factor = (Math.random() - 0.5) * 2;
+        dx = factor * (intensity * 26);
+      }
+
+      if (Math.random() < intensity * 0.25) {
+        dy = (Math.random() - 0.5) * (intensity * 6);
+      }
+
+      this.ctx.drawImage(
+        this.offscreenCanvas,
+        0, sy, this.width, sh,
+        dx, sy + dy, this.width, sh
+      );
+
+      // Chromatic RGB aberration split
+      if (intensity > 0.2 && Math.random() < intensity * 0.35) {
+        this.ctx.save();
+        this.ctx.globalCompositeOperation = 'screen';
+        this.ctx.globalAlpha = intensity * 0.5;
+        const offset = (Math.random() > 0.5 ? 1 : -1) * (intensity * 12);
+        this.ctx.drawImage(
+          this.offscreenCanvas,
+          0, sy, this.width, sh,
+          dx + offset, sy, this.width, sh
+        );
+        this.ctx.restore();
+      }
+    }
+
+    // 3. High energy electric lime sparks
+    const sparkCount = Math.floor(intensity * 24);
+    this.ctx.fillStyle = Math.random() > 0.3 ? '#BFF747' : '#6EC1E4';
+    for (let s = 0; s < sparkCount; s++) {
+      const sx = Math.random() * this.width;
+      const sy = Math.random() * this.height;
+      const sWidth = Math.random() * 3 + 1;
+      const sHeight = Math.random() * 2 + 1;
+      this.ctx.globalAlpha = Math.random() * intensity;
+      this.ctx.fillRect(sx, sy, sWidth, sHeight);
+    }
+    this.ctx.globalAlpha = 1.0;
+  }
+
+  destroy() {
+    if (this.animId) cancelAnimationFrame(this.animId);
+    window.removeEventListener('resize', this.handleResize);
+  }
+}
+
+window.FuzzyText = FuzzyText;
+
 function init404Stage() {
+  // Initialize FuzzyText for "404"
+  const fuzzy404Box = document.getElementById('fuzzyTextContainer');
+  if (fuzzy404Box) {
+    new FuzzyText(fuzzy404Box, {
+      text: '404',
+      baseIntensity: 0.22,
+      hoverIntensity: 0.75,
+      enableHover: true,
+      fontWeight: '900',
+      fontFamily: "'Outfit', 'Plus Jakarta Sans', sans-serif",
+      color: '#BFF747'
+    });
+  }
+
+  // Initialize FuzzyText for "not found" with Caveat handwritten font
+  const fuzzyNotFoundBox = document.getElementById('fuzzyTextNotFoundContainer');
+  if (fuzzyNotFoundBox) {
+    new FuzzyText(fuzzyNotFoundBox, {
+      text: 'not found',
+      baseIntensity: 0.22,
+      hoverIntensity: 0.75,
+      enableHover: true,
+      fontWeight: '700',
+      fontFamily: "'Caveat', cursive, sans-serif",
+      color: '#BFF747'
+    });
+  }
+
+  // 3D Perspective Cyber Grid + Floating Dust
   const canvas = document.getElementById('bgAnimationCanvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
-    let w, h;
-    let nodes = [];
-    let mouse = { x: -1000, y: -1000 };
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
 
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-      initNodes();
+    let gridOffset = 0;
+    let mouse = { x: width / 2, y: height / 2 };
+
+    const dustParticles = [];
+    const particleCount = 45;
+    for (let i = 0; i < particleCount; i++) {
+      dustParticles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.6 + 0.2,
+        vy: Math.random() * 0.4 + 0.2
+      });
     }
 
-    function initNodes() {
-      nodes = [];
-      const count = Math.min(Math.floor((w * h) / 14000), 70);
-      for (let i = 0; i < count; i++) {
-        nodes.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.7,
-          vy: (Math.random() - 0.5) * 0.7,
-          radius: Math.random() * 2 + 1,
-          alpha: Math.random() * 0.5 + 0.3
-        });
-      }
-    }
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
 
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     }, { passive: true });
 
-    function render() {
-      ctx.clearRect(0, 0, w, h);
+    function drawGridBackground() {
+      ctx.clearRect(0, 0, width, height);
 
-      for (let i = 0; i < nodes.length; i++) {
-        const n1 = nodes[i];
-        n1.x += n1.vx;
-        n1.y += n1.vy;
+      const grad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 350);
+      grad.addColorStop(0, 'rgba(191, 247, 71, 0.07)');
+      grad.addColorStop(0.5, 'rgba(110, 193, 228, 0.03)');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
 
-        if (n1.x < 0 || n1.x > w) n1.vx *= -1;
-        if (n1.y < 0 || n1.y > h) n1.vy *= -1;
+      const horizonY = height * 0.45;
+      const numLines = 28;
 
-        
-        for (let j = i + 1; j < nodes.length; j++) {
-          const n2 = nodes[j];
-          const dx = n1.x - n2.x;
-          const dy = n1.y - n2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 130) {
-            ctx.strokeStyle = `rgba(191, 247, 71, ${0.2 * (1 - dist / 130)})`;
-            ctx.lineWidth = 0.85;
-            ctx.beginPath();
-            ctx.moveTo(n1.x, n1.y);
-            ctx.lineTo(n2.x, n2.y);
-            ctx.stroke();
-          }
-        }
+      ctx.lineWidth = 0.8;
+      ctx.strokeStyle = 'rgba(191, 247, 71, 0.12)';
 
-        
-        const mdx = n1.x - mouse.x;
-        const mdy = n1.y - mouse.y;
-        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mdist < 160) {
-          ctx.strokeStyle = `rgba(191, 247, 71, ${0.45 * (1 - mdist / 160)})`;
-          ctx.lineWidth = 1.2;
+      const cx = width / 2;
+      for (let i = -numLines; i <= numLines; i++) {
+        const xStart = cx + i * (width / numLines) * 2;
+        ctx.beginPath();
+        ctx.moveTo(cx + i * 15, horizonY);
+        ctx.lineTo(xStart, height);
+        ctx.stroke();
+      }
+
+      gridOffset = (gridOffset + 0.6) % 35;
+      for (let y = horizonY; y < height; y += (y - horizonY) * 0.18 + 4) {
+        const drawY = y + gridOffset;
+        if (drawY > horizonY && drawY < height) {
+          const lineAlpha = ((drawY - horizonY) / (height - horizonY)) * 0.2;
+          ctx.strokeStyle = `rgba(191, 247, 71, ${lineAlpha})`;
           ctx.beginPath();
-          ctx.moveTo(n1.x, n1.y);
-          ctx.lineTo(mouse.x, mouse.y);
+          ctx.moveTo(0, drawY);
+          ctx.lineTo(width, drawY);
           ctx.stroke();
         }
+      }
 
-        ctx.fillStyle = '#BFF747';
-        ctx.globalAlpha = n1.alpha;
+      const beamGrad = ctx.createLinearGradient(0, horizonY - 2, 0, horizonY + 2);
+      beamGrad.addColorStop(0, 'transparent');
+      beamGrad.addColorStop(0.5, 'rgba(191, 247, 71, 0.25)');
+      beamGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = beamGrad;
+      ctx.fillRect(0, horizonY - 2, width, 4);
+
+      for (let i = 0; i < dustParticles.length; i++) {
+        const p = dustParticles[i];
+        p.y -= p.vy;
+        if (p.y < 0) {
+          p.y = height;
+          p.x = Math.random() * width;
+        }
+
+        ctx.fillStyle = p.radius > 1.2 ? '#BFF747' : '#6EC1E4';
+        ctx.globalAlpha = p.alpha;
         ctx.beginPath();
-        ctx.arc(n1.x, n1.y, n1.radius, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.globalAlpha = 1.0;
       }
 
-      requestAnimationFrame(render);
+      requestAnimationFrame(drawGridBackground);
     }
 
-    window.addEventListener('resize', resize);
-    resize();
-    render();
+    drawGridBackground();
   }
 
-  
-  const heroStage = document.getElementById('errorHeroStage');
-  const viewport = document.getElementById('errorViewport');
+  const heroStage = document.getElementById('errorStage') || document.getElementById('errorHeroStage');
+  const viewport = document.body;
 
   if (heroStage && viewport && window.matchMedia('(hover: hover)').matches) {
     viewport.addEventListener('mousemove', (e) => {
-      const rect = viewport.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
       const mouseX = e.clientX - centerX;
       const mouseY = e.clientY - centerY;
 
-      const rotateX = (mouseY / (rect.height / 2)) * -6;
-      const rotateY = (mouseX / (rect.width / 2)) * 6;
+      const rotateX = (mouseY / centerY) * -5;
+      const rotateY = (mouseX / centerX) * 5;
 
       heroStage.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
