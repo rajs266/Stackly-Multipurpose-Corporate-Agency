@@ -909,7 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Play when modal opens or button is clicked
+    
     videoModal.addEventListener('show.bs.modal', playVideo);
     videoModal.addEventListener('shown.bs.modal', playVideo);
 
@@ -918,7 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', playVideo);
     });
 
-    // Pause and reset video when modal closes
+    
     videoModal.addEventListener('hide.bs.modal', stopVideo);
     videoModal.addEventListener('hidden.bs.modal', stopVideo);
   }
@@ -1740,15 +1740,7 @@ function showSuccessModal(title, msg) {
 window.showSuccessModal = showSuccessModal;
 
 
-/* ==========================================================================
-   FuzzyText Canvas Component & 404 Stage Initialization
-   ========================================================================== */
-/* ==========================================================================
-   FuzzyText Canvas Component & 404 Stage Initialization
-   ========================================================================== */
-/* ==========================================================================
-   FuzzyText Canvas Component & 404 Stage Initialization
-   ========================================================================== */
+
 class FuzzyText {
   constructor(element, options = {}) {
     if (typeof element === 'string') {
@@ -1835,7 +1827,7 @@ class FuzzyText {
       else if (windowWidth < 1200) computedFontSize = 125;
       else computedFontSize = 145;
     } else {
-      // Handwritten "not found" font sizing
+      
       if (windowWidth < 480) computedFontSize = 42;
       else if (windowWidth < 768) computedFontSize = 55;
       else if (windowWidth < 1200) computedFontSize = 68;
@@ -1868,7 +1860,7 @@ class FuzzyText {
     this.offscreenCanvas.width = totalWidth;
     this.offscreenCanvas.height = totalHeight;
 
-    // Render original theme lime color gradient to offscreen canvas
+    
     this.offscreenCtx.clearRect(0, 0, totalWidth, totalHeight);
     this.offscreenCtx.font = fontStr;
     this.offscreenCtx.textAlign = 'center';
@@ -1906,14 +1898,14 @@ class FuzzyText {
 
     const intensity = this.currentIntensity;
     
-    // 1. Ambient neon glow underlayer
+    
     this.ctx.save();
     this.ctx.globalAlpha = 0.35 + intensity * 0.45;
     this.ctx.filter = `blur(${3 + intensity * 6}px)`;
     this.ctx.drawImage(this.offscreenCanvas, 0, 0);
     this.ctx.restore();
 
-    // 2. Sliced fuzzy jitter rendering
+    
     const sliceHeight = 2;
     const totalSlices = Math.ceil(this.height / sliceHeight);
 
@@ -1939,7 +1931,7 @@ class FuzzyText {
         dx, sy + dy, this.width, sh
       );
 
-      // Chromatic RGB aberration split
+      
       if (intensity > 0.2 && Math.random() < intensity * 0.35) {
         this.ctx.save();
         this.ctx.globalCompositeOperation = 'screen';
@@ -1954,7 +1946,7 @@ class FuzzyText {
       }
     }
 
-    // 3. High energy electric lime sparks
+    
     const sparkCount = Math.floor(intensity * 24);
     this.ctx.fillStyle = Math.random() > 0.3 ? '#BFF747' : '#6EC1E4';
     for (let s = 0; s < sparkCount; s++) {
@@ -1977,7 +1969,7 @@ class FuzzyText {
 window.FuzzyText = FuzzyText;
 
 function init404Stage() {
-  // Initialize FuzzyText for "404"
+  
   const fuzzy404Box = document.getElementById('fuzzyTextContainer');
   if (fuzzy404Box) {
     new FuzzyText(fuzzy404Box, {
@@ -1991,7 +1983,7 @@ function init404Stage() {
     });
   }
 
-  // Initialize FuzzyText for "not found" with Caveat handwritten font
+  
   const fuzzyNotFoundBox = document.getElementById('fuzzyTextNotFoundContainer');
   if (fuzzyNotFoundBox) {
     new FuzzyText(fuzzyNotFoundBox, {
@@ -2005,7 +1997,7 @@ function init404Stage() {
     });
   }
 
-  // 3D Perspective Cyber Grid + Floating Dust
+  
   const canvas = document.getElementById('bgAnimationCanvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
